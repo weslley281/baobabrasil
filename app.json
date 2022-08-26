@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "baobabrasil",
+    "slug": "baobabrasil",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
