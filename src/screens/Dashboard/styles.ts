@@ -52,8 +52,31 @@ export const Page = styled.Text`
 
 export const ContainerProducts = styled.View`
   width: 100%;
+  flex: 1;
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+`;
+
+export const ContainerPrint = styled.View`
+  width: 100%;
+  height: 80px;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const Input = styled.TextInput`
+  font-family: ${({ theme }) => theme.fonts.regular};
+  font-size: ${RFValue(14)}px;
+  width: 90%;
+  background-color: ${({ theme }) => theme.colors.primary_light};
+  border-radius: 5px;
+  color: ${({ theme }) => theme.colors.text_dark};
+  padding: 3px 10px 3px 10px;
+  margin-bottom: 5px;
+`;
+
+export const ButtonPrint = styled.Button`
+  color: ${({ theme }) => theme.colors.primary};
 `;
