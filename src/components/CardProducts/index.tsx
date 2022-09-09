@@ -13,7 +13,9 @@ interface Props {
   name: string;
   price: number;
 }
-export function CardProduct({ image, name, price }: Props) {
+export function CardProducts({ image, name, price }: Props) {
+  const newPrice = price.toString().replace('.', ',');
+
   return (
     <Container>
       <ContainerImageProduct>
@@ -22,7 +24,7 @@ export function CardProduct({ image, name, price }: Props) {
 
       <ContainerProductDescription>
         <ProductName>{name}</ProductName>
-        <ProductPrice>R$ {price}</ProductPrice>
+        <ProductPrice>R$ {newPrice}</ProductPrice>
       </ContainerProductDescription>
     </Container>
   );

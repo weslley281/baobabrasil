@@ -1,5 +1,10 @@
 import { RFValue, RFPercentage } from 'react-native-responsive-fontsize';
 import styled from 'styled-components/native';
+import { FlatList, FlatListProps } from 'react-native';
+import {
+  getBottomSpace,
+  getStatusBarHeight,
+} from 'react-native-iphone-x-helper';
 
 export const Container = styled.View`
   flex: 1;
@@ -51,13 +56,21 @@ export const Page = styled.Text`
 `;
 
 export const ContainerProducts = styled.View`
-  width: 100%;
-  flex: 1;
-  flex-direction: row;
-  flex-wrap: wrap;
+  /* width: 100%;
   align-items: center;
-  justify-content: center;
+  background-color: blue; */
 `;
+
+export const ProductsList = styled(FlatList).attrs({
+  showsVerticalScrollIndicator: false,
+  contentContainerStyle: {
+    marginTop: 15,
+    marginLeft: 12,
+    paddingBottom: getBottomSpace(),
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+})``;
 
 export const ContainerPrint = styled.View`
   width: 100%;

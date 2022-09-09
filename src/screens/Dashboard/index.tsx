@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import { CardProduct } from '../../components/CardProducts';
+import uuid from 'react-native-uuid';
+import { FlatList } from 'react-native';
+import { CardProducts } from '../../components/CardProducts';
 import {
   ButtonPrint,
   Container,
   ContainerLogo,
   ContainerPrint,
   ContainerProducts,
+  ProductsList,
   ContainerTitle,
   Header,
   Input,
@@ -19,52 +22,73 @@ import { printToFileAsync } from 'expo-print';
 import { shareAsync } from 'expo-sharing';
 
 interface Props {
-  products: any;
+  image: string;
+  name: string;
+  price: number;
+  id: string;
 }
 
 export function Dashboard() {
-  let [name, setName] = useState();
-  let [content, setConteny] = useState<Props[]>([]);
-  const html = `
-  <html>
-    <body>
-      <p>${content}</p>
-    </body>
-  </html>
-  `;
-  let generetePdf = async () => {
-    const file = await printToFileAsync({
-      html: html,
-      base64: false,
-    });
+  //   let [content, setConteny] = useState<Props[]>([]);
+  //   const html = `
+  //   <html>
+  //     <body>
+  //       <p>${content}</p>
+  //     </body>
+  //   </html>
+  //   `;
+  //   let generetePdf = async () => {
+  //     const file = await printToFileAsync({
+  //       html: html,
+  //       base64: false,
+  //     });
 
-    await shareAsync(file.uri);
-  };
-
-  const products = (
-    <ContainerProducts>
-      <CardProduct
-        image="https://baobabrasil.com.br/wp-content/uploads/2022/06/vinagrete-flocos.jpg"
-        name="Vinagrete em Flocos"
-        price={6.99}
-      />
-      <CardProduct
-        image="https://baobabrasil.com.br/wp-content/uploads/2022/06/vinagrete-flocos.jpg"
-        name="Vinagrete em Flocos"
-        price={6.99}
-      />
-      <CardProduct
-        image="https://baobabrasil.com.br/wp-content/uploads/2022/06/vinagrete-flocos.jpg"
-        name="Vinagrete em Flocos"
-        price={6.99}
-      />
-      <CardProduct
-        image="https://baobabrasil.com.br/wp-content/uploads/2022/06/vinagrete-flocos.jpg"
-        name="Vinagrete em Flocos"
-        price={6.99}
-      />
-    </ContainerProducts>
-  );
+  //     await shareAsync(file.uri);
+  //   };
+  const products = [
+    {
+      id: uuid.v4(),
+      image:
+        'https://baobabrasil.com.br/wp-content/uploads/2022/06/vinagrete-flocos.jpg',
+      name: 'Vinagrete em Flocos',
+      price: 6.99,
+    },
+    {
+      id: uuid.v4(),
+      image:
+        'https://baobabrasil.com.br/wp-content/uploads/2022/06/ameixa-com-caroco.jpg',
+      name: 'Ameixa Seca com Caroço',
+      price: 7.99,
+    },
+    {
+      id: uuid.v4(),
+      image:
+        'https://baobabrasil.com.br/wp-content/uploads/2022/06/farelo-de-aveia.jpg',
+      name: 'Farelo de Aveia',
+      price: 1.49,
+    },
+    {
+      id: uuid.v4(),
+      image:
+        'https://baobabrasil.com.br/wp-content/uploads/2022/06/anis-estrelado.jpg',
+      name: 'Anis Estrelados',
+      price: 27.99,
+    },
+    {
+      id: uuid.v4(),
+      image:
+        'https://baobabrasil.com.br/wp-content/uploads/2022/06/anis-estrelado.jpg',
+      name: 'Anis Estrelados',
+      price: 27.99,
+    },
+    {
+      id: uuid.v4(),
+      image:
+        'https://baobabrasil.com.br/wp-content/uploads/2022/06/anis-estrelado.jpg',
+      name: 'Anis Estrelados',
+      price: 27.99,
+    },
+  ];
 
   return (
     <Container>
@@ -80,16 +104,45 @@ export function Dashboard() {
         </ContainerTitle>
       </Header>
 
-      {products}
+      <ContainerProducts>
+        {/* <ProductsList
+          data={products}
+          numColumns={2}
+          renderItem={({ item }) => (
+            <CardProducts
+              image={item.image}
+              name={item.name}
+              price={item.price}
+            />
+          )}
+        /> */}
+        <FlatList
+          data={products}
+          numColumns={2}
+          horizontal={false}
+          columnWrapperStyle={{
+            justifyContent: 'space-between',
+            marginBottom: 15,
+          }}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => (
+            <CardProducts
+              image={item.image}
+              name={item.name}
+              price={item.price}
+            />
+          )}
+        />
+      </ContainerProducts>
 
-      <ContainerPrint>
+      {/* <ContainerPrint>
         <Input
           value={name}
           placeholder="Name"
           onChangeText={(value) => setName(value)}
         />
         <ButtonPrint title="Generate PDF" onPress={generetePdf} />
-      </ContainerPrint>
+      </ContainerPrint> */}
     </Container>
   );
 }
