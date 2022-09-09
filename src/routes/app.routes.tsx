@@ -5,7 +5,7 @@ import { useTheme } from 'styled-components';
 import { Platform } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 
-import { Principal } from '../screens/Principal';
+import { Dashboard } from '../screens/Dashboard';
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
@@ -26,7 +26,7 @@ export function AppRoutes() {
     >
       <Screen
         name="Principal"
-        component={Principal}
+        component={Dashboard}
         options={{
           tabBarIcon: ({ size, color }) => (
             <MaterialIcons
