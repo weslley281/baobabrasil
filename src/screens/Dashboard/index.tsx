@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import uuid from 'react-native-uuid';
-import { FlatList } from 'react-native';
+import { FlatList, ScrollView } from 'react-native';
 import { CardProducts } from '../../components/CardProducts';
 import {
   ButtonPrint,
@@ -16,6 +16,7 @@ import {
   Page,
   Slogan,
   Title,
+  ScrollViewProducts,
 } from './styles';
 //gerar pdf
 import { printToFileAsync } from 'expo-print';
@@ -105,23 +106,30 @@ export function Dashboard() {
       </Header>
 
       <ContainerProducts>
-        {/* <ProductsList
-          data={products}
-          numColumns={2}
-          renderItem={({ item }) => (
-            <CardProducts
-              image={item.image}
-              name={item.name}
-              price={item.price}
-            />
-          )}
-        /> */}
-        <FlatList
+        <ScrollViewProducts
+          contentContainerStyle={{
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+          }}
+        >
+          {products.map((product) => {
+            return (
+              <CardProducts
+                image={product.image}
+                name={product.name}
+                price={product.price}
+              />
+            );
+          })}
+        </ScrollViewProducts>
+
+        {/* <FlatList
           data={products}
           numColumns={2}
           horizontal={false}
           columnWrapperStyle={{
-            justifyContent: 'space-between',
+            flex: 1,
+            justifyContent: 'space-around',
             marginBottom: 15,
           }}
           keyExtractor={(item) => item.id.toString()}
@@ -132,7 +140,7 @@ export function Dashboard() {
               price={item.price}
             />
           )}
-        />
+        /> */}
       </ContainerProducts>
 
       {/* <ContainerPrint>

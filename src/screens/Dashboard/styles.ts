@@ -93,3 +93,5 @@ export const Input = styled.TextInput`
 export const ButtonPrint = styled.Button`
   color: ${({ theme }) => theme.colors.primary};
 `;
+
+export const ScrollViewProducts = styled.ScrollView``;
