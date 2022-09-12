@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Modal } from 'react-native';
 import uuid from 'react-native-uuid';
 import { FlatList, ScrollView } from 'react-native';
 import { CardProducts } from '../../components/CardProducts';
@@ -23,6 +24,7 @@ import {
 import { printToFileAsync } from 'expo-print';
 import { shareAsync } from 'expo-sharing';
 import { CategorySelectButton } from '../../components/CategorySelectButton';
+import { products } from '../../utils/products';
 
 interface Props {
   image: string;
@@ -76,7 +78,6 @@ export function Dashboard() {
         </ContainerTitle>
       </Header>
 
-<<<<<<< HEAD
       <CategorySelectButton
         onPress={handleOpenSelectCategoryModal}
         title={category.name}
@@ -85,36 +86,6 @@ export function Dashboard() {
       {/* <ProductsList
           data={products}
           numColumns={2}
-=======
-      <ContainerProducts>
-        <ScrollViewProducts
-          contentContainerStyle={{
-            flexDirection: 'row',
-            flexWrap: 'wrap',
-          }}
-        >
-          {products.map((product) => {
-            return (
-              <CardProducts
-                image={product.image}
-                name={product.name}
-                price={product.price}
-              />
-            );
-          })}
-        </ScrollViewProducts>
-
-        {/* <FlatList
-          data={products}
-          numColumns={2}
-          horizontal={false}
-          columnWrapperStyle={{
-            flex: 1,
-            justifyContent: 'space-around',
-            marginBottom: 15,
-          }}
-          keyExtractor={(item) => item.id.toString()}
->>>>>>> 5f8ba315e5acea87d6f4b1023e770240930e5505
           renderItem={({ item }) => (
             <CardProducts
               image={item.image}
@@ -123,7 +94,6 @@ export function Dashboard() {
             />
           )}
         /> */}
-<<<<<<< HEAD
       <FlatList
         data={products}
         numColumns={2}
@@ -145,9 +115,6 @@ export function Dashboard() {
         )}
         showsVerticalScrollIndicator={false}
       />
-=======
-      </ContainerProducts>
->>>>>>> 5f8ba315e5acea87d6f4b1023e770240930e5505
 
       {/* <ContainerPrint>
         <Input
