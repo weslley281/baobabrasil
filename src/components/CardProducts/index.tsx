@@ -13,6 +13,7 @@ interface Props {
   name: string;
   price: number;
 }
+
 export function CardProducts({ image, name, price }: Props) {
   const newPrice = price.toString().replace('.', ',');
 
@@ -23,7 +24,7 @@ export function CardProducts({ image, name, price }: Props) {
       </ContainerImageProduct>
 
       <ContainerProductDescription>
-        <ProductName>{name}</ProductName>
+        <ProductName>{name} - 100g </ProductName>
         <ProductPrice>R$ {newPrice}</ProductPrice>
       </ContainerProductDescription>
     </Container>
