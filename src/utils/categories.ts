@@ -1,43 +1,41 @@
-import uuid from 'react-native-uuid';
-
 export const categories = [
   {
-    key: uuid.v4(),
+    key: 'condimentos',
     name: 'condimentos',
     icon: 'aperture',
   },
   {
-    key: uuid.v4(),
+    key: 'doces',
     name: 'doces',
     icon: 'aperture',
   },
   {
-    key: uuid.v4(),
+    key: 'farinaceos',
     name: 'farinaceos',
     icon: 'aperture',
   },
   {
-    key: uuid.v4(),
+    key: 'chas',
     name: 'chas',
     icon: 'aperture',
   },
   {
-    key: uuid.v4(),
+    key: 'encapsulados',
     name: 'encapsulados',
     icon: 'aperture',
   },
   {
-    key: uuid.v4(),
+    key: 'sementes',
     name: 'sementes',
     icon: 'aperture',
   },
   {
-    key: uuid.v4(),
+    key: 'graos',
     name: 'graos',
     icon: 'aperture',
   },
   {
-    key: uuid.v4(),
+    key: 'suplementos',
     name: 'suplementos',
     icon: 'aperture',
   },

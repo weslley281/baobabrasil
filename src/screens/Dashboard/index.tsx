@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Modal } from 'react-native';
 import uuid from 'react-native-uuid';
 import { FlatList, ScrollView } from 'react-native';
@@ -19,12 +19,15 @@ import {
   Slogan,
   Title,
   ScrollViewProducts,
+  Form,
+  Ordination,
 } from './styles';
 //gerar pdf
 import { printToFileAsync } from 'expo-print';
 import { shareAsync } from 'expo-sharing';
 import { CategorySelectButton } from '../../components/CategorySelectButton';
 import { products } from '../../utils/products';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 interface Props {
   image: string;
@@ -50,19 +53,38 @@ export function Dashboard() {
 
   //     await shareAsync(file.uri);
   //   };
+  const [searchText, setSearchText] = useState('');
   const [cagoryModalOpen, setCagoryModalOpen] = useState(false);
   const [category, setCategory] = useState({
     key: 'category',
-    name: 'Categoria',
+    name: 'Categorias',
   });
+  const [listProducts, setListProducts] = useState(products);
+
+  const handleOrderList = () => {};
 
   function handleOpenSelectCategoryModal() {
     setCagoryModalOpen(true);
+    console.log(cagoryModalOpen);
   }
 
   function handleCloseSelectCategoryModal() {
     setCagoryModalOpen(false);
+    console.log(cagoryModalOpen);
   }
+
+  useEffect(() => {
+    if (searchText === '') {
+      setListProducts(products);
+    } else {
+      setListProducts(
+        products.filter(
+          (item) =>
+            item.name.toLowerCase().indexOf(searchText.toLowerCase()) > -1
+        )
+      );
+    }
+  }, [searchText]);
 
   return (
     <Container>
@@ -78,24 +100,23 @@ export function Dashboard() {
         </ContainerTitle>
       </Header>
 
-      <CategorySelectButton
-        onPress={handleOpenSelectCategoryModal}
-        title={category.name}
-      />
+      <Form>
+        <CategorySelectButton
+          onPress={handleOpenSelectCategoryModal}
+          title={category.name}
+        />
+        <Input
+          placeholder="Pesquise pelo nome"
+          onChangeText={(text) => setSearchText(text)}
+        />
 
-      {/* <ProductsList
-          data={products}
-          numColumns={2}
-          renderItem={({ item }) => (
-            <CardProducts
-              image={item.image}
-              name={item.name}
-              price={item.price}
-            />
-          )}
-        /> */}
+        <Ordination>
+          <Page>Ordenar de A a Z</Page>
+        </Ordination>
+      </Form>
+
       <FlatList
-        data={products}
+        data={listProducts}
         numColumns={2}
         horizontal={false}
         columnWrapperStyle={{

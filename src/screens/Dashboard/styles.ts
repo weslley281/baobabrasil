@@ -14,7 +14,7 @@ export const Container = styled.View`
 export const Header = styled.View`
   width: 100%;
   height: ${RFValue(200)}px;
-  background-color: green;
+  background-color: ${({ theme }) => theme.colors.primary};
 `;
 
 export const ContainerLogo = styled.View`
@@ -79,19 +79,36 @@ export const ContainerPrint = styled.View`
   justify-content: center;
 `;
 
+export const ButtonPrint = styled.Button`
+  color: ${({ theme }) => theme.colors.primary};
+`;
+
+export const ScrollViewProducts = styled.ScrollView``;
+
+export const Form = styled.View`
+  width: 100%;
+  padding: 24px;
+  justify-content: space-between;
+`;
+
 export const Input = styled.TextInput`
+  margin-top: 10px;
   font-family: ${({ theme }) => theme.fonts.regular};
   font-size: ${RFValue(14)}px;
-  width: 90%;
-  background-color: ${({ theme }) => theme.colors.primary_light};
+  width: 100%;
+  height: ${RFValue(50)}px;
+  background-color: ${({ theme }) => theme.colors.shape};
   border-radius: 5px;
   color: ${({ theme }) => theme.colors.text_dark};
   padding: 3px 10px 3px 10px;
   margin-bottom: 5px;
 `;
 
-export const ButtonPrint = styled.Button`
-  color: ${({ theme }) => theme.colors.primary};
+export const Ordination = styled.TouchableOpacity`
+  background-color: ${({ theme }) => theme.colors.primary};
+  width: 100%;
+  height: ${RFValue(40)}px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
 `;
-
-export const ScrollViewProducts = styled.ScrollView``;

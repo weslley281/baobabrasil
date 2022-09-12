@@ -1,9 +1,11 @@
 import React from 'react';
 import { FlatList } from 'react-native';
+import { Button } from '../../components/Button';
 import { categories } from '../../utils/categories';
 import {
   Category,
   Container,
+  Footer,
   Header,
   Icon,
   Name,
