@@ -17,6 +17,8 @@ import {
   Slogan,
   Title,
   ScrollViewProducts,
+  Form,
+  Input,
 } from './styles';
 //gerar pdf
 import { printToFileAsync } from 'expo-print';
@@ -24,6 +26,7 @@ import { shareAsync } from 'expo-sharing';
 import { CategorySelectButton } from '../../components/CategorySelectButton';
 
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Button } from '../../components/Button';
 
 interface Props {
   image: string;
@@ -60,9 +63,17 @@ export function Dashboard() {
         <ContainerTitle>
           <Title>Clube Baobá</Title>
           <Slogan>Um clube de ofertas, sorteios e saúde</Slogan>
-          <Page>Catálogo de Produtos</Page>
+          <Page>Faça o seu Cadastro</Page>
         </ContainerTitle>
       </Header>
+
+      <Form>
+        <Input placeholder="Nome" />
+        <Input placeholder="Telefone" />
+        <Input placeholder="Email" />
+        <Input placeholder="CPF" />
+        <Button title="Enviar" />
+      </Form>
 
       {/* <ContainerPrint>
         <Input

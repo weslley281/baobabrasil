@@ -39,7 +39,7 @@ export function AppRoutes() {
         component={Products}
         options={{
           tabBarIcon: ({ size, color }) => (
-            <MaterialIcons name="home" size={size} color={color} />
+            <MaterialIcons name="archive" size={size} color={color} />
           ),
         }}
       />
