@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Form, Input, Ordination, Title } from './styles';
+import { Container, Form, Header, Input, Ordination, Title } from './styles';
 import { FlatList, Modal } from 'react-native';
 import { products } from '../../utils/products';
 import { CategorySelectButton } from '../../components/CategorySelectButton';
@@ -17,12 +17,10 @@ export function Products() {
 
   function handleOpenSelectCategoryModal() {
     setCagoryModalOpen(true);
-    console.log(cagoryModalOpen);
   }
 
   function handleCloseSelectCategoryModal() {
     setCagoryModalOpen(false);
-    console.log(cagoryModalOpen);
   }
 
   const handleOrderList = () => {
@@ -34,6 +32,16 @@ export function Products() {
 
     setListProducts(newListProducts);
   };
+
+  useEffect(() => {
+    if (category.name === 'category') {
+      setListProducts(products);
+    } else {
+      setListProducts(
+        products.filter((item) => item.category.toLowerCase() === category.key)
+      );
+    }
+  }, [category]);
 
   useEffect(() => {
     if (searchText === '') {
@@ -50,6 +58,9 @@ export function Products() {
 
   return (
     <Container>
+      <Header>
+        <Title>Produtos</Title>
+      </Header>
       <Form>
         <CategorySelectButton
           onPress={handleOpenSelectCategoryModal}

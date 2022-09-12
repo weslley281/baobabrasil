@@ -34,4 +34,5 @@ export const ProductName = styled.Text`
 export const ProductPrice = styled.Text`
   font-family: ${({ theme }) => theme.fonts.bold};
   font-size: ${RFValue(15)}px;
+  color: white;
 `;
