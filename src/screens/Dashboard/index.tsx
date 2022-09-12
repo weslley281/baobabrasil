@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import uuid from 'react-native-uuid';
+import { Modal, Keyboard, Alert } from 'react-native';
+import { products } from '../../utils/products';
 import { FlatList } from 'react-native';
 import { CardProducts } from '../../components/CardProducts';
+import { CategorySelect } from '../CategorySelect';
 import {
   ButtonPrint,
   Container,
@@ -20,6 +22,7 @@ import {
 //gerar pdf
 import { printToFileAsync } from 'expo-print';
 import { shareAsync } from 'expo-sharing';
+import { CategorySelectButton } from '../../components/CategorySelectButton';
 
 interface Props {
   image: string;
@@ -45,50 +48,19 @@ export function Dashboard() {
 
   //     await shareAsync(file.uri);
   //   };
-  const products = [
-    {
-      id: uuid.v4(),
-      image:
-        'https://baobabrasil.com.br/wp-content/uploads/2022/06/vinagrete-flocos.jpg',
-      name: 'Vinagrete em Flocos',
-      price: 6.99,
-    },
-    {
-      id: uuid.v4(),
-      image:
-        'https://baobabrasil.com.br/wp-content/uploads/2022/06/ameixa-com-caroco.jpg',
-      name: 'Ameixa Seca com Caroço',
-      price: 7.99,
-    },
-    {
-      id: uuid.v4(),
-      image:
-        'https://baobabrasil.com.br/wp-content/uploads/2022/06/farelo-de-aveia.jpg',
-      name: 'Farelo de Aveia',
-      price: 1.49,
-    },
-    {
-      id: uuid.v4(),
-      image:
-        'https://baobabrasil.com.br/wp-content/uploads/2022/06/anis-estrelado.jpg',
-      name: 'Anis Estrelados',
-      price: 27.99,
-    },
-    {
-      id: uuid.v4(),
-      image:
-        'https://baobabrasil.com.br/wp-content/uploads/2022/06/anis-estrelado.jpg',
-      name: 'Anis Estrelados',
-      price: 27.99,
-    },
-    {
-      id: uuid.v4(),
-      image:
-        'https://baobabrasil.com.br/wp-content/uploads/2022/06/anis-estrelado.jpg',
-      name: 'Anis Estrelados',
-      price: 27.99,
-    },
-  ];
+  const [cagoryModalOpen, setCagoryModalOpen] = useState(false);
+  const [category, setCategory] = useState({
+    key: 'category',
+    name: 'Categoria',
+  });
+
+  function handleOpenSelectCategoryModal() {
+    setCagoryModalOpen(true);
+  }
+
+  function handleCloseSelectCategoryModal() {
+    setCagoryModalOpen(false);
+  }
 
   return (
     <Container>
@@ -104,8 +76,12 @@ export function Dashboard() {
         </ContainerTitle>
       </Header>
 
-      <ContainerProducts>
-        {/* <ProductsList
+      <CategorySelectButton
+        onPress={handleOpenSelectCategoryModal}
+        title={category.name}
+      />
+
+      {/* <ProductsList
           data={products}
           numColumns={2}
           renderItem={({ item }) => (
@@ -116,24 +92,27 @@ export function Dashboard() {
             />
           )}
         /> */}
-        <FlatList
-          data={products}
-          numColumns={2}
-          horizontal={false}
-          columnWrapperStyle={{
-            justifyContent: 'space-between',
-            marginBottom: 15,
-          }}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => (
-            <CardProducts
-              image={item.image}
-              name={item.name}
-              price={item.price}
-            />
-          )}
-        />
-      </ContainerProducts>
+      <FlatList
+        data={products}
+        numColumns={2}
+        horizontal={false}
+        columnWrapperStyle={{
+          flex: 1,
+          justifyContent: 'space-around',
+          marginBottom: 15,
+          paddingTop: 10,
+          paddingLeft: 10,
+        }}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => (
+          <CardProducts
+            image={item.image}
+            name={item.name}
+            price={item.price}
+          />
+        )}
+        showsVerticalScrollIndicator={false}
+      />
 
       {/* <ContainerPrint>
         <Input
@@ -143,6 +122,14 @@ export function Dashboard() {
         />
         <ButtonPrint title="Generate PDF" onPress={generetePdf} />
       </ContainerPrint> */}
+
+      <Modal visible={cagoryModalOpen}>
+        <CategorySelect
+          category={category}
+          setCategory={setCategory}
+          closeSelectCategory={handleCloseSelectCategoryModal}
+        />
+      </Modal>
     </Container>
   );
 }
