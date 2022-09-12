@@ -6,6 +6,7 @@ import { Platform } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 
 import { Dashboard } from '../screens/Dashboard';
+import { Products } from '../screens/Products';
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
@@ -25,15 +26,20 @@ export function AppRoutes() {
       }}
     >
       <Screen
-        name="Principal"
+        name="Início"
         component={Dashboard}
         options={{
           tabBarIcon: ({ size, color }) => (
-            <MaterialIcons
-              name="format-list-bulleted"
-              size={size}
-              color={color}
-            />
+            <MaterialIcons name="home" size={size} color={color} />
+          ),
+        }}
+      />
+      <Screen
+        name="Produtos"
+        component={Products}
+        options={{
+          tabBarIcon: ({ size, color }) => (
+            <MaterialIcons name="home" size={size} color={color} />
           ),
         }}
       />
