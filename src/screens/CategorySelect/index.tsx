@@ -5,7 +5,6 @@ import { categories } from '../../utils/categories';
 import {
   Category,
   Container,
-  Footer,
   Header,
   Icon,
   Name,
@@ -28,6 +27,7 @@ export function CategorySelect({
   closeSelectCategory,
 }: Props) {
   function handleCategorySelect(category: Category) {
+    closeSelectCategory();
     setCategory(category);
   }
 
@@ -52,10 +52,6 @@ export function CategorySelect({
         )}
         ItemSeparatorComponent={() => <Separator />}
       />
-
-      <Footer>
-        <Button title="Selecionar" onPress={closeSelectCategory} />
-      </Footer>
     </Container>
   );
 }

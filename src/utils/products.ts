@@ -110,4 +110,20 @@ export const products = [
     category: 'condimentos',
     price: 3.99,
   },
+  {
+    id: uuid.v4(),
+    image:
+      'https://baobabrasil.com.br/wp-content/uploads/2022/06/amendoim-torrado-sem-pele.jpg',
+    name: 'Amendoim Sem Pele (SEM SAL) Torrado – 100g',
+    category: 'graos',
+    price: 2.99,
+  },
+  {
+    id: uuid.v4(),
+    image:
+      'https://baobabrasil.com.br/wp-content/uploads/2022/06/coentro-inteiro.jpg',
+    name: 'Coentro em grão – 100g',
+    category: 'graos',
+    price: 3.49,
+  },
 ];

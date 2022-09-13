@@ -31,7 +31,7 @@ export const categories = [
   },
   {
     key: 'graos',
-    name: 'graos',
+    name: 'grãos',
     icon: 'aperture',
   },
   {
