@@ -39,4 +39,9 @@ export const categories = [
     name: 'suplementos',
     icon: 'aperture',
   },
+  {
+    key: 'todos',
+    name: 'todos',
+    icon: 'aperture',
+  },
 ];

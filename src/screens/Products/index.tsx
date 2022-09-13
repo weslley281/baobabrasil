@@ -36,6 +36,8 @@ export function Products() {
   useEffect(() => {
     if (category.name === 'category') {
       setListProducts(products);
+    } else if (category.name === 'todos') {
+      setListProducts(products);
     } else {
       setListProducts(
         products.filter((item) => item.category.toLowerCase() === category.key)

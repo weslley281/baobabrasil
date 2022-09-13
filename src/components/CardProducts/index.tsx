@@ -16,6 +16,8 @@ interface Props {
 
 export function CardProducts({ image, name, price }: Props) {
   const newPrice = price.toString().replace('.', ',');
+  const name2 = name.toLowerCase();
+  const nameFormated = name2[0].toLocaleUpperCase() + name2.substring(1);
 
   return (
     <Container>
@@ -24,7 +26,7 @@ export function CardProducts({ image, name, price }: Props) {
       </ContainerImageProduct>
 
       <ContainerProductDescription>
-        <ProductName>{name} - 100g </ProductName>
+        <ProductName>{nameFormated}</ProductName>
         <ProductPrice>R$ {newPrice}</ProductPrice>
       </ContainerProductDescription>
     </Container>
