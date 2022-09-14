@@ -1,16 +1,27 @@
-import React, { useEffect, useState } from 'react';
-import { Container, Form, Header, Input, Ordination, Title } from './styles';
-import { FlatList, Modal } from 'react-native';
+import React, { useEffect, useState, useCallback } from 'react';
+import {
+  Container,
+  Form,
+  Header,
+  Input,
+  LoadContainer,
+  Ordination,
+  Title,
+} from './styles';
+import { ActivityIndicator, FlatList, Modal } from 'react-native';
 // import { products } from '../../utils/products';
 import { CategorySelectButton } from '../../components/CategorySelectButton';
 import { CardProducts } from '../../components/CardProducts';
 import { CategorySelect } from '../CategorySelect';
 import api from '../../services/api';
+import { useFocusEffect } from '@react-navigation/native';
+import { useTheme } from 'styled-components';
 
 export function Products() {
+  const theme = useTheme();
   const [products, setProducts] = useState<any>([]);
   const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const [searchText, setSearchText] = useState('');
   const [cagoryModalOpen, setCagoryModalOpen] = useState(false);
@@ -19,7 +30,6 @@ export function Products() {
     name: 'Categorias',
   });
   const [listProducts, setListProducts] = useState(products);
-  const [totalItems, setTotalItems] = useState(0);
 
   async function loadData() {
     try {
@@ -27,20 +37,29 @@ export function Products() {
 
       if (products.length >= response.data.totalItems) return;
 
-      if (loading === true) return;
-
-      setLoading(true);
-
       setProducts([...products, ...response.data.resultado]);
       setPage(page + 1);
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
     }
   }
 
+  // useEffect(() => {
+  //   loadData();
+  // }, [products]);
+
+  //fetches transactions at the moment the application loads
   useEffect(() => {
     loadData();
-  }, [page, totalItems, products]);
+  }, []);
+
+  //fetches transactions when the application is loaded
+  useFocusEffect(
+    useCallback(() => {
+      loadData();
+    }, [])
+  );
 
   function handleOpenSelectCategoryModal() {
     setCagoryModalOpen(true);
@@ -61,8 +80,10 @@ export function Products() {
   };
 
   useEffect(() => {
-    if (category.name === 'category') {
+    console.log(category.key);
+    if (category.key === 'category') {
       setListProducts(products);
+      console.log('444');
     } else if (category.name === 'todos') {
       setListProducts(products);
     } else {
@@ -71,6 +92,23 @@ export function Products() {
       );
     }
   }, [category]);
+
+  useFocusEffect(
+    useCallback(() => {
+      if (category.key === 'category') {
+        setListProducts(products);
+        console.log('444');
+      } else if (category.name === 'todos') {
+        setListProducts(products);
+      } else {
+        setListProducts(
+          products.filter(
+            (item) => item.category.toLowerCase() === category.key
+          )
+        );
+      }
+    }, [])
+  );
 
   useEffect(() => {
     if (searchText === '') {
@@ -105,27 +143,35 @@ export function Products() {
         </Ordination>
       </Form>
 
-      <FlatList
-        data={listProducts}
-        numColumns={2}
-        horizontal={false}
-        columnWrapperStyle={{
-          flex: 1,
-          justifyContent: 'space-around',
-          marginBottom: 15,
-          paddingTop: 10,
-          paddingLeft: 10,
-        }}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => (
-          <CardProducts
-            image={item.image}
-            name={item.name}
-            price={item.price}
+      {isLoading ? (
+        <LoadContainer>
+          <ActivityIndicator color={theme.colors.primary} size="large" />
+        </LoadContainer>
+      ) : (
+        <>
+          <FlatList
+            data={listProducts}
+            numColumns={2}
+            horizontal={false}
+            columnWrapperStyle={{
+              flex: 1,
+              justifyContent: 'space-around',
+              marginBottom: 15,
+              paddingTop: 10,
+              paddingLeft: 10,
+            }}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={({ item }) => (
+              <CardProducts
+                image={item.image}
+                name={item.name}
+                price={item.price}
+              />
+            )}
+            showsVerticalScrollIndicator={false}
           />
-        )}
-        showsVerticalScrollIndicator={false}
-      />
+        </>
+      )}
 
       <Modal visible={cagoryModalOpen}>
         <CategorySelect

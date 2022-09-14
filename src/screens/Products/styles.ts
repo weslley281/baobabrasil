@@ -47,3 +47,9 @@ export const Title = styled.Text`
   font-size: ${RFValue(18)}px;
   color: ${({ theme }) => theme.colors.shape};
 `;
+
+export const LoadContainer = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;
