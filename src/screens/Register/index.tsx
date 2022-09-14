@@ -5,9 +5,10 @@ import { Button } from '../../components/Button';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
-import DatePicker from '@react-native-community/datetimepicker';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 import { Container, Form, Header, Input, Label, Title } from './styles';
+import RNDateTimePicker from '@react-native-community/datetimepicker';
 
 interface FormData {
   name: string;
@@ -96,13 +97,13 @@ export function Register() {
     return true;
   }
 
-  function changeDate(selectDate) {
+  const changeDate = (event, selectedDate) => {
     if (event?.type === 'dismissed') {
       setDate(date);
       return;
     }
-    setDate(selectDate);
-  }
+    setDate(selectedDate);
+  };
 
   return (
     <Container>
@@ -134,10 +135,17 @@ export function Register() {
 
           <Label>Data de Aniversário</Label>
 
-          <DatePicker
-            format="DD/MM/YYY"
-            date={date}
-            onDateChange={changeDate}
+          <RNDateTimePicker
+            style={{
+              height: 100,
+            }}
+            locale="pt-BR"
+            themeVariant="light"
+            minimumDate={new Date(1950, 0, 1)}
+            maximumDate={new Date(2300, 10, 20)}
+            value={date}
+            mode="date"
+            onChange={changeDate}
           />
 
           <Button title="Enviar" onPress={handleSubmit(handleRegister)} />
