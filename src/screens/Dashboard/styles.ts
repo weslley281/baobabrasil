@@ -71,35 +71,3 @@ export const ProductsList = styled(FlatList).attrs({
     justifyContent: 'center',
   },
 })``;
-
-export const ContainerPrint = styled.View`
-  width: 100%;
-  height: 80px;
-  align-items: center;
-  justify-content: center;
-`;
-
-export const ButtonPrint = styled.Button`
-  color: ${({ theme }) => theme.colors.primary};
-`;
-
-export const ScrollViewProducts = styled.ScrollView``;
-
-export const Form = styled.View`
-  width: 100%;
-  padding: 24px;
-  justify-content: space-between;
-`;
-
-export const Input = styled.TextInput`
-  margin-top: 10px;
-  font-family: ${({ theme }) => theme.fonts.regular};
-  font-size: ${RFValue(14)}px;
-  width: 100%;
-  height: ${RFValue(50)}px;
-  background-color: ${({ theme }) => theme.colors.shape};
-  border-radius: 5px;
-  color: ${({ theme }) => theme.colors.text_dark};
-  padding: 3px 10px 3px 10px;
-  margin-bottom: 5px;
-`;
