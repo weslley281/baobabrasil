@@ -16,12 +16,13 @@ import { CategorySelect } from '../CategorySelect';
 import api from '../../services/api';
 import { useFocusEffect } from '@react-navigation/native';
 import { useTheme } from 'styled-components';
+import axios from 'axios';
 
 export function Products() {
   const theme = useTheme();
   const [products, setProducts] = useState<any>([]);
   const [page, setPage] = useState(1);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [searchText, setSearchText] = useState('');
   const [cagoryModalOpen, setCagoryModalOpen] = useState(false);
@@ -32,7 +33,18 @@ export function Products() {
   const [listProducts, setListProducts] = useState(products);
 
   async function loadData() {
+    // axios
+    //   .get('https://baobabrasil.com.br/apiBaoba/products/product_list.php')
+    //   .then((response) => {
+    //     this.setProducts({ data: response.data });
+    //     setIsLoading(false);
+    //   })
+    //   .catch(() => {
+    //     console.log('Error retrieving data');
+    //   });
+
     try {
+      setIsLoading(true);
       const response = await api.get(`products/product_list.php`);
 
       if (products.length >= response.data.totalItems) return;
@@ -44,10 +56,6 @@ export function Products() {
       console.log(error);
     }
   }
-
-  // useEffect(() => {
-  //   loadData();
-  // }, [products]);
 
   //fetches transactions at the moment the application loads
   useEffect(() => {
@@ -83,7 +91,7 @@ export function Products() {
     console.log(category.key);
     if (category.key === 'category') {
       setListProducts(products);
-      console.log('444');
+      console.log('primeira execução');
     } else if (category.name === 'todos') {
       setListProducts(products);
     } else {
@@ -93,23 +101,7 @@ export function Products() {
     }
   }, [category]);
 
-  useFocusEffect(
-    useCallback(() => {
-      if (category.key === 'category') {
-        setListProducts(products);
-        console.log('444');
-      } else if (category.name === 'todos') {
-        setListProducts(products);
-      } else {
-        setListProducts(
-          products.filter(
-            (item) => item.category.toLowerCase() === category.key
-          )
-        );
-      }
-    }, [])
-  );
-
+  //busca por texto
   useEffect(() => {
     if (searchText === '') {
       setListProducts(products);
