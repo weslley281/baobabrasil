@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { FlatList, ScrollView } from 'react-native';
-import { CardProducts } from '../../components/CardProducts';
-import { CategorySelect } from '../CategorySelect';
+import { KeyboardAvoidingView } from 'react-native';
 import {
   ButtonPrint,
   Container,
@@ -20,12 +18,7 @@ import {
   Form,
   Input,
 } from './styles';
-//gerar pdf
-import { printToFileAsync } from 'expo-print';
-import { shareAsync } from 'expo-sharing';
-import { CategorySelectButton } from '../../components/CategorySelectButton';
 
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Button } from '../../components/Button';
 
 interface Props {
@@ -36,23 +29,6 @@ interface Props {
 }
 
 export function Dashboard() {
-  //   let [content, setConteny] = useState<Props[]>([]);
-  //   const html = `
-  //   <html>
-  //     <body>
-  //       <p>${content}</p>
-  //     </body>
-  //   </html>
-  //   `;
-  //   let generetePdf = async () => {
-  //     const file = await printToFileAsync({
-  //       html: html,
-  //       base64: false,
-  //     });
-
-  //     await shareAsync(file.uri);
-  //   };
-
   return (
     <Container>
       <Header>
@@ -67,22 +43,28 @@ export function Dashboard() {
         </ContainerTitle>
       </Header>
 
-      <Form>
-        <Input placeholder="Nome" />
-        <Input placeholder="Telefone" />
-        <Input placeholder="Email" />
-        <Input placeholder="CPF" />
-        <Button title="Enviar" onPress={() => {}} />
-      </Form>
-
-      {/* <ContainerPrint>
-        <Input
-          value={name}
-          placeholder="Name"
-          onChangeText={(value) => setName(value)}
-        />
-        <ButtonPrint title="Generate PDF" onPress={generetePdf} />
-      </ContainerPrint> */}
+      <KeyboardAvoidingView
+        contentContainerStyle={{
+          bottom: 0,
+          left: 0,
+          flexDirection: 'row',
+          padding: 10,
+          alignContent: 'center',
+          justifyContent: 'space-between',
+          borderTopColor: '#FFF',
+          borderTopWidth: 1,
+        }}
+        behavior="position"
+        enabled
+      >
+        <Form>
+          <Input placeholder="Nome" />
+          <Input placeholder="Telefone" />
+          <Input placeholder="Email" />
+          <Input placeholder="CPF" />
+          <Button title="Enviar" onPress={() => {}} />
+        </Form>
+      </KeyboardAvoidingView>
     </Container>
   );
 }

@@ -131,7 +131,7 @@ export function Products() {
         />
 
         <Ordination onPress={handleOrderList}>
-          <Title>Ordenar de A a Z</Title>
+          <Title>Exibir Todos</Title>
         </Ordination>
       </Form>
 
