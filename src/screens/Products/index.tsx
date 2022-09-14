@@ -169,6 +169,7 @@ export function Products() {
         <CategorySelect
           category={category}
           setCategory={setCategory}
+          setSearchText={setSearchText}
           closeSelectCategory={handleCloseSelectCategoryModal}
         />
       </Modal>

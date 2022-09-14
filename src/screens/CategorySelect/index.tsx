@@ -19,16 +19,19 @@ interface Category {
 interface Props {
   category: Category;
   setCategory: (category: Category) => void;
+  setSearchText: any;
   closeSelectCategory: () => void;
 }
 export function CategorySelect({
   category,
   setCategory,
+  setSearchText,
   closeSelectCategory,
 }: Props) {
   function handleCategorySelect(category: Category) {
     closeSelectCategory();
     setCategory(category);
+    setSearchText('');
   }
 
   return (
