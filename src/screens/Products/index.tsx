@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Form, Header, Input, Ordination, Title } from './styles';
 import { FlatList, Modal } from 'react-native';
-import { products } from '../../utils/products';
+// import { products } from '../../utils/products';
 import { CategorySelectButton } from '../../components/CategorySelectButton';
 import { CardProducts } from '../../components/CardProducts';
 import { CategorySelect } from '../CategorySelect';
+import api from '../../services/api';
 
 export function Products() {
+  const [products, setProducts] = useState<any>([]);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+
   const [searchText, setSearchText] = useState('');
   const [cagoryModalOpen, setCagoryModalOpen] = useState(false);
   const [category, setCategory] = useState({
@@ -14,6 +19,28 @@ export function Products() {
     name: 'Categorias',
   });
   const [listProducts, setListProducts] = useState(products);
+  const [totalItems, setTotalItems] = useState(0);
+
+  async function loadData() {
+    try {
+      const response = await api.get(`products/product_list.php`);
+
+      if (products.length >= response.data.totalItems) return;
+
+      if (loading === true) return;
+
+      setLoading(true);
+
+      setProducts([...products, ...response.data.resultado]);
+      setPage(page + 1);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    loadData();
+  }, [page, totalItems, products]);
 
   function handleOpenSelectCategoryModal() {
     setCagoryModalOpen(true);

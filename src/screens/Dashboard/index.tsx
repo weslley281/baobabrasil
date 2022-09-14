@@ -72,7 +72,7 @@ export function Dashboard() {
         <Input placeholder="Telefone" />
         <Input placeholder="Email" />
         <Input placeholder="CPF" />
-        <Button title="Enviar" />
+        <Button title="Enviar" onPress={() => {}} />
       </Form>
 
       {/* <ContainerPrint>
