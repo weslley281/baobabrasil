@@ -5,10 +5,19 @@ import { Button } from '../../components/Button';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
-import DateTimePicker from '@react-native-community/datetimepicker';
 
-import { Container, Form, Header, Input, Label, Title } from './styles';
-import RNDateTimePicker from '@react-native-community/datetimepicker';
+import { useTheme } from 'styled-components';
+
+import {
+  Container,
+  ContainerForm,
+  Form,
+  Header,
+  Input,
+  Label,
+  TextInputMasked,
+  Title,
+} from './styles';
 
 interface FormData {
   name: string;
@@ -20,10 +29,10 @@ interface FormData {
 }
 
 export function Register() {
-  const [date, setDate] = useState(new Date());
-  const [mode, showMode] = useState('date');
-  const [show, setShow] = useState(false);
-  const [text, setText] = useState('Enpty');
+  const [date, setDate] = useState(new Date().toString());
+  const [cpf, setCpf] = useState('000.000.000-00');
+  const [phone, setPhone] = useState('');
+  const theme = useTheme();
 
   const schema = yup.object().shape({
     name: yup.string().required('Nome é obrigatório'),
@@ -100,79 +109,69 @@ export function Register() {
     return true;
   }
 
-  const changeDate = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
-    setShow(Platform.OS == 'ios');
-    setDate(currentDate);
-
-    let tempDate = new Date(currentDate);
-    let fDate =
-      tempDate.getDate() +
-      '/' +
-      tempDate.getMonth +
-      '/' +
-      tempDate.getFullYear();
-    setText(fDate);
-
-    if (event?.type === 'dismissed') {
-      setDate(date);
-      return;
-    }
-    setDate(selectedDate);
-  };
-
   return (
     <Container>
       <Header>
         <Title>Registro</Title>
       </Header>
-      <KeyboardAvoidingView
-        contentContainerStyle={{
-          bottom: 0,
-          left: 0,
-          flexDirection: 'row',
-          padding: 10,
-          alignContent: 'center',
-          justifyContent: 'space-between',
-          borderTopColor: '#FFF',
-          borderTopWidth: 1,
-        }}
-        behavior="position"
-        enabled
-      >
-        <Form>
-          <Input name="name" placeholder="Nome" />
-          <Input name="phone" placeholder="Telefone" />
-          <Input name="email" placeholder="Email" />
-          <Input name="cpf" placeholder="CPF" />
-          <Input name="password" placeholder="Senha" />
 
-          <Input name="confirmPassword" placeholder="Repita a Senha" />
+      <ContainerForm>
+        <KeyboardAvoidingView
+          contentContainerStyle={{
+            bottom: 0,
+            left: 0,
+            flexDirection: 'row',
+            padding: 10,
+            alignContent: 'center',
+            justifyContent: 'space-between',
+            borderTopColor: '#FFF',
+            borderTopWidth: 1,
+          }}
+          behavior="position"
+          enabled
+        >
+          <Form>
+            <Input name="name" placeholder="Nome" />
 
-          <Label>Data de Aniversário</Label>
-
-          {show && (
-            <DateTimePicker
-              style={{
-                height: 100,
+            <Label>Telefone</Label>
+            <TextInputMasked
+              type={'cel-phone'}
+              options={{
+                maskType: 'BRL',
+                withDDD: true,
+                dddMask: '(99) ',
               }}
-              locale="pt-BR"
-              themeVariant="light"
-              minimumDate={new Date(1950, 0, 1)}
-              maximumDate={new Date(2300, 10, 20)}
-              value={date}
-              mode="date"
-              onChange={changeDate}
+              value={phone}
+              onChangeText={(text) => setPhone(text)}
             />
-          )}
 
-          <Button
-            title="Data de Aniversario"
-            onPress={() => showMode('date')}
-          ></Button>
-          <Button title="Enviar" onPress={handleSubmit(handleRegister)} />
-        </Form>
-      </KeyboardAvoidingView>
+            <Label>CPF:</Label>
+            <TextInputMasked
+              type={'cpf'}
+              value={cpf}
+              onChangeText={(text) => setCpf(text)}
+            />
+
+            <Label>Data de Aniversário:</Label>
+            <TextInputMasked
+              type={'datetime'}
+              options={{
+                format: 'DD/MM/YYYY',
+              }}
+              value={date}
+              onChangeText={(text) => console.log(text)}
+            />
+
+            <Input name="email" placeholder="Email" />
+
+            <Input name="password" placeholder="Senha" />
+
+            <Input name="confirmPassword" placeholder="Repita a Senha" />
+
+            <Button title="Enviar" onPress={handleSubmit(handleRegister)} />
+          </Form>
+        </KeyboardAvoidingView>
+      </ContainerForm>
     </Container>
   );
 }

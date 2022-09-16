@@ -1,5 +1,6 @@
 import { RFValue } from 'react-native-responsive-fontsize';
 import styled from 'styled-components/native';
+import { TextInputMask } from 'react-native-masked-text';
 
 export const Container = styled.View`
   flex: 1;
@@ -53,3 +54,18 @@ export const Input = styled.TextInput`
 `;
 
 export const Label = styled.Text``;
+
+export const TextInputMasked = styled(TextInputMask)`
+  margin-top: 10px;
+  font-family: ${({ theme }) => theme.fonts.regular};
+  font-size: ${RFValue(14)}px;
+  width: 100%;
+  height: ${RFValue(50)}px;
+  background-color: ${({ theme }) => theme.colors.shape};
+  border-radius: 5px;
+  color: ${({ theme }) => theme.colors.text_dark};
+  padding: 3px 10px 3px 10px;
+  margin-bottom: 5px;
+`;
+
+export const ContainerForm = styled.ScrollView``;
