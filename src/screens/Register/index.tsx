@@ -18,6 +18,7 @@ import {
   TextInputMasked,
   Title,
 } from './styles';
+import { InputPassWord } from '../../components/InputPassword';
 
 interface FormData {
   name: string;
@@ -29,9 +30,12 @@ interface FormData {
 }
 
 export function Register() {
-  const [date, setDate] = useState(new Date().toString());
-  const [cpf, setCpf] = useState('000.000.000-00');
+  const [date, setDate] = useState('');
+  const [cpf, setCpf] = useState('');
   const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
   const theme = useTheme();
 
   const schema = yup.object().shape({
@@ -131,9 +135,13 @@ export function Register() {
           enabled
         >
           <Form>
-            <Input name="name" placeholder="Nome" />
+            <Input
+              name="name"
+              placeholder="Nome"
+              onChangeText={(text) => setName(text)}
+            />
 
-            <Label>Telefone</Label>
+            <Label>Telefone:</Label>
             <TextInputMasked
               type={'cel-phone'}
               options={{
@@ -162,9 +170,13 @@ export function Register() {
               onChangeText={(text) => console.log(text)}
             />
 
-            <Input name="email" placeholder="Email" />
+            <Input
+              name="email"
+              placeholder="Email"
+              onChangeText={(text) => setEmail(text)}
+            />
 
-            <Input name="password" placeholder="Senha" />
+            <InputPassWord onChangeText={(text) => setPassword(text)} />
 
             <Input name="confirmPassword" placeholder="Repita a Senha" />
 
