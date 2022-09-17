@@ -51,9 +51,10 @@ export function Products() {
 
       setProducts([...products, ...response.data.resultado]);
       setPage(page + 1);
-      setIsLoading(false);
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   }
 
