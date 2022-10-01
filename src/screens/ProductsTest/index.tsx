@@ -36,7 +36,7 @@ export function ProductsTest() {
   useEffect(() => {
     async function fetchProducts() {
       try {
-        const response = await api.get('products/product_list.php');
+        const response = await api.get('/products/product_list.php');
         setProducts(response.data);
       } catch (error) {
         console.log(error);
@@ -46,7 +46,17 @@ export function ProductsTest() {
     }
 
     fetchProducts();
+    console.log(products);
   }, []);
+
+  // useEffect(() => {
+  //   api
+  //     .get('/products/product_list.php')
+  //     .then((response) => setProducts(response.data))
+  //     .catch((err) => {
+  //       console.error('ops! ocorreu um erro' + err);
+  //     });
+  // }, []);
 
   return (
     <Container>
@@ -57,12 +67,20 @@ export function ProductsTest() {
       {loading ? (
         <Load />
       ) : (
-        <ProductsList
+        <FlatList
           data={products}
+          numColumns={2}
+          horizontal={false}
+          columnWrapperStyle={{
+            flex: 1,
+            justifyContent: 'space-around',
+            marginBottom: 15,
+            paddingTop: 10,
+            paddingLeft: 10,
+          }}
           keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => (
-            <CardProducts data={item} onPress={() => {}} />
-          )}
+          renderItem={({ item }) => <CardProducts data={item} />}
+          showsVerticalScrollIndicator={false}
         />
       )}
     </Container>
