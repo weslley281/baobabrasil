@@ -13,7 +13,7 @@ import { ActivityIndicator, FlatList, Modal } from 'react-native';
 import { CategorySelectButton } from '../../components/CategorySelectButton';
 import { CardProducts } from '../../components/CardProducts';
 import { CategorySelect } from '../CategorySelect';
-import api from '../../services/api';
+import { api } from '../../services/api';
 import { useFocusEffect } from '@react-navigation/native';
 import { useTheme } from 'styled-components';
 import axios from 'axios';
@@ -33,16 +33,6 @@ export function Products() {
   const [listProducts, setListProducts] = useState(products);
 
   async function loadData() {
-    // axios
-    //   .get('https://baobabrasil.com.br/apiBaoba/products/product_list.php')
-    //   .then((response) => {
-    //     this.setProducts({ data: response.data });
-    //     setIsLoading(false);
-    //   })
-    //   .catch(() => {
-    //     console.log('Error retrieving data');
-    //   });
-
     try {
       setIsLoading(true);
       const response = await api.get(`products/product_list.php`);
@@ -50,7 +40,6 @@ export function Products() {
       if (products.length >= response.data.totalItems) return;
 
       setProducts([...products, ...response.data.resultado]);
-      setPage(page + 1);
     } catch (error) {
       console.log(error);
     } finally {

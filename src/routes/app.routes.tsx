@@ -8,6 +8,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { Dashboard } from '../screens/Dashboard';
 import { Products } from '../screens/Products';
 import { Register } from '../screens/Register';
+import { ProductsTest } from '../screens/ProductsTest';
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
@@ -27,14 +28,19 @@ export function AppRoutes() {
       }}
     >
       <Screen
-        name="Início"
-        component={Dashboard}
+        name="Teste"
+        component={ProductsTest}
         options={{
           tabBarIcon: ({ size, color }) => (
-            <MaterialIcons name="home" size={size} color={color} />
+            <MaterialIcons
+              name="emoji-food-beverage"
+              size={size}
+              color={color}
+            />
           ),
         }}
       />
+
       <Screen
         name="Produtos"
         component={Products}
@@ -48,6 +54,17 @@ export function AppRoutes() {
           ),
         }}
       />
+
+      <Screen
+        name="Início"
+        component={Dashboard}
+        options={{
+          tabBarIcon: ({ size, color }) => (
+            <MaterialIcons name="home" size={size} color={color} />
+          ),
+        }}
+      />
+
       <Screen
         name="Registro"
         component={Register}
