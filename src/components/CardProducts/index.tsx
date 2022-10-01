@@ -1,4 +1,5 @@
 import React from 'react';
+import { RectButtonProps } from 'react-native-gesture-handler';
 import {
   Container,
   ContainerImageProduct,
@@ -7,22 +8,21 @@ import {
   ProductName,
   ProductPrice,
 } from './styles';
+import { ProductsProps } from '../../DTO/ProductsDTO';
 
-interface Props {
-  image: string;
-  name: string;
-  price: number;
+interface Props extends RectButtonProps {
+  data: ProductsProps;
 }
 
-export function CardProducts({ image, name, price }: Props) {
-  const newPrice = price.toString().replace('.', ',');
-  const name2 = name.toLowerCase();
+export function CardProducts({ data, ...rest }: Props) {
+  const newPrice = data.price.toString().replace('.', ',');
+  const name2 = data.name.toLowerCase();
   const nameFormated = name2[0].toLocaleUpperCase() + name2.substring(1);
 
   return (
-    <Container>
+    <Container {...rest}>
       <ContainerImageProduct>
-        <ImageProduct source={{ uri: image }} />
+        <ImageProduct source={{ uri: data.image }} />
       </ContainerImageProduct>
 
       <ContainerProductDescription>

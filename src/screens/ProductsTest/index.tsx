@@ -6,6 +6,7 @@ import {
   Input,
   LoadContainer,
   Ordination,
+  ProductsList,
   Title,
 } from './styles';
 import { ActivityIndicator, FlatList, Modal } from 'react-native';
@@ -16,7 +17,7 @@ import { CategorySelect } from '../CategorySelect';
 import { api } from '../../services/api';
 import { useFocusEffect } from '@react-navigation/native';
 import { useTheme } from 'styled-components';
-import axios from 'axios';
+import { Load } from '../../components/Load';
 
 interface ProductsProps {
   id: number;
@@ -54,30 +55,14 @@ export function ProductsTest() {
       </Header>
 
       {loading ? (
-        <LoadContainer>
-          <ActivityIndicator color={theme.colors.primary} size="large" />
-        </LoadContainer>
+        <Load />
       ) : (
-        <FlatList
+        <ProductsList
           data={products}
-          numColumns={2}
-          horizontal={false}
-          columnWrapperStyle={{
-            flex: 1,
-            justifyContent: 'space-around',
-            marginBottom: 15,
-            paddingTop: 10,
-            paddingLeft: 10,
-          }}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
-            <CardProducts
-              image={item.image}
-              name={item.name}
-              price={item.price}
-            />
+            <CardProducts data={item} onPress={() => {}} />
           )}
-          showsVerticalScrollIndicator={false}
         />
       )}
     </Container>
