@@ -6,6 +6,7 @@ import {
   Input,
   LoadContainer,
   Ordination,
+  ProductsList,
   Title,
 } from './styles';
 import { ActivityIndicator, FlatList, Modal } from 'react-native';
@@ -16,23 +17,41 @@ import { CategorySelect } from '../CategorySelect';
 import { api } from '../../services/api';
 import { useFocusEffect } from '@react-navigation/native';
 import { useTheme } from 'styled-components';
-import axios from 'axios';
+import { Load } from '../../components/Load';
+import { useIsFocused } from '@react-navigation/native';
+
+interface ProductsProps {
+  id: number;
+  name: string;
+  descriptiom: string;
+  price: number;
+  category: number;
+  image: string;
+}
 
 export function Products() {
   const theme = useTheme();
-  const [products, setProducts] = useState<any>([]);
-  const [page, setPage] = useState(1);
+  const isFocused = useIsFocused();
+  const [products, setProducts] = useState<ProductsProps[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-
+  const [page, setPage] = useState(1);
   const [searchText, setSearchText] = useState('');
   const [cagoryModalOpen, setCagoryModalOpen] = useState(false);
   const [category, setCategory] = useState({
     key: 'category',
     name: 'Categorias',
   });
-  const [listProducts, setListProducts] = useState(products);
+  const [searchProducts, setSearchProducts] = useState(products);
 
-  async function loadData() {
+  function handleOpenSelectCategoryModal() {
+    setCagoryModalOpen(true);
+  }
+
+  function handleCloseSelectCategoryModal() {
+    setCagoryModalOpen(false);
+  }
+
+  async function listProducts() {
     try {
       setIsLoading(true);
       const response = await api.get(`products/product_list.php`);
@@ -47,56 +66,20 @@ export function Products() {
     }
   }
 
-  //fetches transactions at the moment the application loads
   useEffect(() => {
-    loadData();
+    listProducts();
   }, []);
 
-  //fetches transactions when the application is loaded
-  useFocusEffect(
-    useCallback(() => {
-      loadData();
-    }, [])
-  );
-
-  function handleOpenSelectCategoryModal() {
-    setCagoryModalOpen(true);
-  }
-
-  function handleCloseSelectCategoryModal() {
-    setCagoryModalOpen(false);
-  }
-
-  const handleOrderList = () => {
-    let newListProducts = [...products];
-
-    newListProducts.sort((a, b) =>
-      a.name > b.name ? 1 : b.name > a.name ? -1 : 0
-    );
-
-    setListProducts(newListProducts);
-  };
-
   useEffect(() => {
-    console.log(category.key);
-    if (category.key === 'category') {
-      setListProducts(products);
-      console.log('primeira execução');
-    } else if (category.name === 'todos') {
-      setListProducts(products);
-    } else {
-      setListProducts(
-        products.filter((item) => item.category.toLowerCase() === category.key)
-      );
-    }
-  }, [category]);
+    listProducts();
+  }, [isFocused]);
 
   //busca por texto
   useEffect(() => {
     if (searchText === '') {
-      setListProducts(products);
+      setSearchProducts(products);
     } else {
-      setListProducts(
+      setSearchProducts(
         products.filter(
           (item) =>
             item.name.toLowerCase().indexOf(searchText.toLowerCase()) > -1
@@ -105,11 +88,25 @@ export function Products() {
     }
   }, [searchText]);
 
+  //busca por categoria
+  useEffect(() => {
+    if (category.key === 'category') {
+      setProducts(products);
+    } else if (category.name === 'todos') {
+      listProducts();
+    } else {
+      setProducts(
+        products.filter((item) => item.category.toLowerCase() === category.key)
+      );
+    }
+  }, [category]);
+
   return (
     <Container>
       <Header>
         <Title>Produtos</Title>
       </Header>
+
       <Form>
         <CategorySelectButton
           onPress={handleOpenSelectCategoryModal}
@@ -119,40 +116,29 @@ export function Products() {
           placeholder="Pesquise pelo nome"
           onChangeText={(text) => setSearchText(text)}
         />
-
-        <Ordination onPress={handleOrderList}>
-          <Title>Exibir Todos</Title>
-        </Ordination>
       </Form>
-
-      {isLoading ? (
-        <LoadContainer>
-          <ActivityIndicator color={theme.colors.primary} size="large" />
-        </LoadContainer>
-      ) : (
-        <>
-          <FlatList
-            data={listProducts}
+      {searchText === '' ? (
+        isLoading ? (
+          <Load />
+        ) : (
+          <ProductsList
+            data={products}
             numColumns={2}
-            horizontal={false}
-            columnWrapperStyle={{
-              flex: 1,
-              justifyContent: 'space-around',
-              marginBottom: 15,
-              paddingTop: 10,
-              paddingLeft: 10,
-            }}
-            keyExtractor={(item) => item.id.toString()}
+            keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
-              <CardProducts
-                image={item.image}
-                name={item.name}
-                price={item.price}
-              />
+              <CardProducts data={item} onPress={() => {}} />
             )}
-            showsVerticalScrollIndicator={false}
           />
-        </>
+        )
+      ) : (
+        <ProductsList
+          data={searchProducts}
+          numColumns={2}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <CardProducts data={item} onPress={() => {}} />
+          )}
+        />
       )}
 
       <Modal visible={cagoryModalOpen}>
