@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { KeyboardAvoidingView, Platform } from 'react-native';
+import { Alert, KeyboardAvoidingView, Platform } from 'react-native';
 import { Button } from '../../components/Button';
 
 import * as yup from 'yup';
@@ -19,6 +19,8 @@ import {
   Title,
 } from './styles';
 import { InputPassWord } from '../../components/InputPassword';
+import { api } from '../../services/api';
+import { useNavigation } from '@react-navigation/core';
 
 interface FormData {
   name: string;
@@ -30,6 +32,7 @@ interface FormData {
 }
 
 export function Register() {
+  const navigation: any = useNavigation();
   const [date, setDate] = useState('');
   const [cpf, setCpf] = useState('');
   const [phone, setPhone] = useState('');
@@ -37,46 +40,7 @@ export function Register() {
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const theme = useTheme();
-
-  const schema = yup.object().shape({
-    name: yup.string().required('Nome é obrigatório'),
-    email: yup.string().email().required(),
-    phone: yup
-      .string()
-      .required('Telefone obrigatório')
-      .min(8, 'Telefone precisa ter no mínimo 9 caracteres'),
-    password: yup
-      .string()
-      .notRequired()
-      .min(6, 'A senha deve ter pelo menos 6 caracteres'),
-    confirmPassword: yup
-      .string()
-      .oneOf([yup.ref('password'), null], 'Passwords must match'),
-    cpf: yup
-      .string()
-      .required()
-      .test('test-invalid-cpf', 'cpf inválido', (cpf) => isValidCPF(cpf)),
-  });
-
-  const {
-    control,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
-  });
-
-  function handleRegister(form: FormData) {
-    const newClient = {
-      name: form.name,
-      phone: form.phone,
-      email: form.email,
-      cpf: form.cpf,
-      password: form.password,
-      birthday: date,
-    };
-  }
+  const [sucess, setSucess] = useState(false);
 
   function isValidCPF(cpf) {
     if (typeof cpf !== 'string') return false;
@@ -113,6 +77,33 @@ export function Register() {
     return true;
   }
 
+  async function handleRegister() {
+    setSucess(true);
+
+    try {
+      const obj = {
+        name: name,
+        phone: phone,
+        date: date,
+        email: email,
+        cpf: cpf,
+        password: password,
+      };
+
+      await api.post('clients/save_clients.php', obj);
+
+      setName('');
+      setPhone('');
+      setDate('');
+      setEmail('');
+      setCpf('');
+      setPassword('');
+    } catch (error) {
+      Alert.alert('Ops', 'Alguma coisa deu errado, tente novamente.');
+      setSucess(false);
+    }
+  }
+
   return (
     <Container>
       <Header>
@@ -120,69 +111,64 @@ export function Register() {
       </Header>
 
       <ContainerForm>
-        <KeyboardAvoidingView
-          contentContainerStyle={{
-            bottom: 0,
-            left: 0,
-            flexDirection: 'row',
-            padding: 10,
-            alignContent: 'center',
-            justifyContent: 'space-between',
-            borderTopColor: '#FFF',
-            borderTopWidth: 1,
-          }}
-          behavior="position"
-          enabled
-        >
-          <Form>
-            <Input
-              name="name"
-              placeholder="Nome"
-              onChangeText={(text) => setName(text)}
-            />
+        <Form>
+          <Input
+            name="name"
+            placeholder="Nome"
+            onChangeText={(text) => setName(text)}
+          />
 
-            <Label>Telefone:</Label>
-            <TextInputMasked
-              type={'cel-phone'}
-              options={{
-                maskType: 'BRL',
-                withDDD: true,
-                dddMask: '(99) ',
-              }}
-              value={phone}
-              onChangeText={(text) => setPhone(text)}
-            />
+          <TextInputMasked
+            placeholder="Telefone"
+            type={'cel-phone'}
+            options={{
+              maskType: 'BRL',
+              withDDD: true,
+              dddMask: '(99) ',
+            }}
+            value={phone}
+            onChangeText={(text) => setPhone(text)}
+          />
 
-            <Label>CPF:</Label>
-            <TextInputMasked
-              type={'cpf'}
-              value={cpf}
-              onChangeText={(text) => setCpf(text)}
-            />
+          <TextInputMasked
+            placeholder="CPF"
+            type={'cpf'}
+            value={cpf}
+            onChangeText={(text) => setCpf(text)}
+          />
 
-            <Label>Data de Aniversário:</Label>
-            <TextInputMasked
-              type={'datetime'}
-              options={{
-                format: 'DD/MM/YYYY',
-              }}
-              value={date}
-              onChangeText={(text) => console.log(text)}
-            />
+          <TextInputMasked
+            placeholder="Data de Aniversário"
+            type={'datetime'}
+            options={{
+              format: 'DD/MM/YYYY',
+            }}
+            value={date}
+            onChangeText={(text) => console.log(text)}
+          />
 
-            <Input
-              name="email"
-              placeholder="Email"
-              onChangeText={(text) => setEmail(text)}
-            />
+          <Input
+            name="email"
+            placeholder="Email"
+            onChangeText={(text) => setEmail(text)}
+          />
 
-            <InputPassWord onChangeText={(text) => setPassword(text)} />
+          <InputPassWord />
 
-            <Input name="confirmPassword" placeholder="Repita a Senha" />
+          <Input name="confirmPassword" placeholder="Repita a Senha" />
 
-            <Button title="Enviar" onPress={handleSubmit(handleRegister)} />
-          </Form>
-        </KeyboardAvoidingView>
+          <Button
+            title="Enviar"
+            onPress={() => {
+              setSucess(true);
+              handleRegister().then(() => {
+                setTimeout(() => {
+                  setSucess(false);
+                }, 1500);
+              });
+            }}
+          />
+        </Form>
       </ContainerForm>
     </Container>
   );
