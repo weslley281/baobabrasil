@@ -18,7 +18,7 @@ import {
   TextInputMasked,
   Title,
 } from './styles';
-import { InputPassWord } from '../../components/InputPassword';
+
 import { api } from '../../services/api';
 import { useNavigation } from '@react-navigation/core';
 
@@ -152,8 +152,6 @@ export function Register() {
             placeholder="Email"
             onChangeText={(text) => setEmail(text)}
           />
-
-          <InputPassWord />
 
           <Input name="confirmPassword" placeholder="Repita a Senha" />
 
