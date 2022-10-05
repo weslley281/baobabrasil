@@ -8,6 +8,7 @@ import React, {
 
 import * as AuthSession from 'expo-auth-session';
 import * as AppleAuthentication from 'expo-apple-authentication';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const REDIRECT_URI = 'https://auth.expo.io/@weslley.ferraz/gofinances';
 const { CLIENT_ID } = process.env;
