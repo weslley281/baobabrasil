@@ -29,9 +29,7 @@ export default function App() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <ThemeProvider theme={theme}>
         <NavigationContainer>
-          <AuthProvider>
-            <Routes />
-          </AuthProvider>
+          <AppRoutes />
         </NavigationContainer>
       </ThemeProvider>
     </GestureHandlerRootView>

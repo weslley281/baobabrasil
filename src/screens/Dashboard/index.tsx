@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { FlatList } from 'react-native-gesture-handler';
+import { CardPromotion } from '../../components/CardPromotion';
+import { cardsPromotion } from '../../utils/cardsPromotion';
 
 import {
   Container,
@@ -12,15 +15,6 @@ import {
   Slogan,
   Title,
 } from './styles';
-
-import { Button } from '../../components/Button';
-
-interface Props {
-  image: string;
-  name: string;
-  price: number;
-  id: string;
-}
 
 export function Dashboard() {
   return (
@@ -36,6 +30,15 @@ export function Dashboard() {
           <Page>Faça o seu Cadastro</Page>
         </ContainerTitle>
       </Header>
+
+      <FlatList
+        data={cardsPromotion}
+        keyExtractor={(item) => item.id.toString()}
+        horizontal
+        renderItem={({ item }) => (
+          <CardPromotion data={item} onPress={() => {}} />
+        )}
+      />
     </Container>
   );
 }
