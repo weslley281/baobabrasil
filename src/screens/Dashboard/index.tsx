@@ -42,7 +42,7 @@ export function Dashboard() {
             <Button
               title="Aqui"
               color={theme.colors.shape}
-              onPress={() => {}}
+              onPress={handleScreenRegister}
             />
           </ContainerButton>
         </ContainerTitle>

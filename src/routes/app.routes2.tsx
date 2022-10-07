@@ -17,6 +17,8 @@ export function StackRoutes2() {
   return (
     <Navigator screenOptions={{ headerShown: false }}>
       <Screen name="Register" component={Register} />
+      <Screen name="Register" component={Register} />
+      <Screen name="Register" component={Register} />
     </Navigator>
   );
 }
