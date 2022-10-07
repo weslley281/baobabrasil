@@ -1,5 +1,6 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { useTheme } from 'styled-components';
 import { Platform } from 'react-native';
@@ -28,39 +29,25 @@ export function AppRoutes() {
       }}
     >
       <Screen
-        name="Produtos"
-        component={Products}
-        options={{
-          tabBarIcon: ({ size, color }) => (
-            <MaterialIcons
-              name="emoji-food-beverage"
-              size={size}
-              color={color}
-            />
-          ),
-        }}
-      />
-
-      {/* <Screen
-        name="Produtos"
-        component={Products}
-        options={{
-          tabBarIcon: ({ size, color }) => (
-            <MaterialIcons
-              name="emoji-food-beverage"
-              size={size}
-              color={color}
-            />
-          ),
-        }}
-      /> */}
-
-      <Screen
         name="Início"
         component={Dashboard}
         options={{
           tabBarIcon: ({ size, color }) => (
             <MaterialIcons name="home" size={size} color={color} />
+          ),
+        }}
+      />
+
+      <Screen
+        name="Produtos"
+        component={Products}
+        options={{
+          tabBarIcon: ({ size, color }) => (
+            <MaterialIcons
+              name="emoji-food-beverage"
+              size={size}
+              color={color}
+            />
           ),
         }}
       />

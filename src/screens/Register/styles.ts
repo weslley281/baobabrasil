@@ -53,8 +53,6 @@ export const Input = styled.TextInput`
   margin-bottom: 5px;
 `;
 
-export const Label = styled.Text``;
-
 export const TextInputMasked = styled(TextInputMask)`
   margin-top: 10px;
   font-family: ${({ theme }) => theme.fonts.regular};

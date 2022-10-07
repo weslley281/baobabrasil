@@ -13,13 +13,13 @@ export const Container = styled.View`
 
 export const Header = styled.View`
   width: 100%;
-  height: ${RFValue(200)}px;
+  height: ${RFValue(300)}px;
   background-color: ${({ theme }) => theme.colors.primary};
 `;
 
 export const ContainerLogo = styled.View`
   width: 100%;
-  height: ${RFValue(100)}px;
+  height: ${RFValue(150)}px;
   align-items: center;
   justify-content: center;
   padding-top: 40px;
@@ -29,6 +29,11 @@ export const Logo = styled.Image`
   width: ${RFValue(250)}px;
   height: ${RFValue(50)}px;
   border-radius: 10px;
+`;
+
+export const ContainerButton = styled.View`
+  margin-top: 5px;
+  width: 90%;
 `;
 
 export const ContainerTitle = styled.View`
@@ -46,28 +51,7 @@ export const Title = styled.Text`
 
 export const Slogan = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};
-  font-size: ${RFValue(15)}px;
-`;
-
-export const Page = styled.Text`
-  font-family: ${({ theme }) => theme.fonts.regular};
-  font-size: ${RFValue(18)}px;
   color: ${({ theme }) => theme.colors.shape};
+  font-size: ${RFValue(15)}px;
+  text-align: center;
 `;
-
-export const ContainerProducts = styled.View`
-  /* width: 100%;
-  align-items: center;
-  background-color: blue; */
-`;
-
-export const ProductsList = styled(FlatList).attrs({
-  showsVerticalScrollIndicator: false,
-  contentContainerStyle: {
-    marginTop: 15,
-    marginLeft: 12,
-    paddingBottom: getBottomSpace(),
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-})``;

@@ -1,22 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { FlatList } from 'react-native-gesture-handler';
+import { useTheme } from 'styled-components';
+import { Button } from '../../components/Button';
 import { CardPromotion } from '../../components/CardPromotion';
 import { cardsPromotion } from '../../utils/cardsPromotion';
 
 import {
   Container,
   ContainerLogo,
-  ContainerProducts,
-  ProductsList,
   ContainerTitle,
   Header,
   Logo,
-  Page,
   Slogan,
   Title,
+  ContainerButton,
 } from './styles';
 
 export function Dashboard() {
+  const theme = useTheme();
+
   return (
     <Container>
       <Header>
@@ -26,8 +28,17 @@ export function Dashboard() {
 
         <ContainerTitle>
           <Title>Clube Baobá</Title>
-          <Slogan>Um clube de ofertas, sorteios e saúde</Slogan>
-          <Page>Faça o seu Cadastro</Page>
+          <Slogan>
+            Um clube de ofertas, sorteios e saúde.{'\n'}Faça o seu Cadastro
+          </Slogan>
+
+          <ContainerButton>
+            <Button
+              title="Aqui"
+              color={theme.colors.shape}
+              onPress={() => {}}
+            />
+          </ContainerButton>
         </ContainerTitle>
       </Header>
 

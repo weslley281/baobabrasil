@@ -1,10 +1,6 @@
 import React, { useState } from 'react';
-import { Alert, KeyboardAvoidingView, Platform } from 'react-native';
+import { Alert } from 'react-native';
 import { Button } from '../../components/Button';
-
-import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm } from 'react-hook-form';
 
 import { useTheme } from 'styled-components';
 
@@ -14,7 +10,6 @@ import {
   Form,
   Header,
   Input,
-  Label,
   TextInputMasked,
   Title,
 } from './styles';
@@ -157,6 +152,7 @@ export function Register() {
 
           <Button
             title="Enviar"
+            light
             onPress={() => {
               setSucess(true);
               handleRegister().then(() => {
