@@ -13,6 +13,7 @@ import {
 } from '@expo-google-fonts/poppins';
 import { AuthProvider } from './src/hooks/auth';
 import { Routes } from './src/routes';
+import { StackRoutes2 } from './src/routes/stack.routes';
 
 export default function App() {
   const [fontsLoaded] = useFonts({

@@ -4,6 +4,7 @@ import { useTheme } from 'styled-components';
 import { Button } from '../../components/Button';
 import { CardPromotion } from '../../components/CardPromotion';
 import { cardsPromotion } from '../../utils/cardsPromotion';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 import {
   Container,
@@ -18,6 +19,11 @@ import {
 
 export function Dashboard() {
   const theme = useTheme();
+  const { navigate, goBack } = useNavigation<any>();
+
+  function handleScreenRegister() {
+    navigate('Registro');
+  }
 
   return (
     <Container>

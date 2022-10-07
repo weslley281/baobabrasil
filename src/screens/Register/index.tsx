@@ -27,6 +27,7 @@ interface FormData {
 }
 
 export function Register() {
+  
   const navigation: any = useNavigation();
   const [date, setDate] = useState('');
   const [cpf, setCpf] = useState('');
