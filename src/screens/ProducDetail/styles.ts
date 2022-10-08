@@ -8,7 +8,7 @@ export const Header = styled.View``;
 
 export const HeaderContainer = styled.View``;
 
-export const Title = styled.View``;
+export const Title = styled.Text``;
 
 export const ImageProduct = styled.Image``;
 
