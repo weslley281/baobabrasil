@@ -9,16 +9,21 @@ import { Dashboard } from '../screens/Dashboard';
 
 import { Register } from '../screens/Register';
 import { Products } from '../screens/Products';
+import { ProductDetail } from '../screens/ProducDetail';
 
 const { Navigator, Screen } = createNativeStackNavigator();
 
-export function StackRoutes2() {
+export function StackRoutes() {
   const theme = useTheme();
   return (
-    <Navigator screenOptions={{ headerShown: false }}>
+    <Navigator
+      initialRouteName="DashBoard"
+      screenOptions={{ headerShown: false }}
+    >
       <Screen name="Register" component={Register} />
-      <Screen name="Register" component={Register} />
-      <Screen name="Register" component={Register} />
+      <Screen name="Products" component={Products} />
+      <Screen name="Product" component={ProductDetail} />
+      <Screen name="DashBoard" component={Dashboard} />
     </Navigator>
   );
 }

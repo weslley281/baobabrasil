@@ -15,7 +15,7 @@ import { CategorySelectButton } from '../../components/CategorySelectButton';
 import { CardProducts } from '../../components/CardProducts';
 import { CategorySelect } from '../CategorySelect';
 import { api } from '../../services/api';
-import { useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { useTheme } from 'styled-components';
 import { Load } from '../../components/Load';
 import { useIsFocused } from '@react-navigation/native';
@@ -37,19 +37,12 @@ export function Products() {
   const [page, setPage] = useState(1);
   const [searchText, setSearchText] = useState('');
   const [cagoryModalOpen, setCagoryModalOpen] = useState(false);
+  const { navigate, goBack } = useNavigation<any>();
   const [category, setCategory] = useState({
     key: 'category',
     name: 'Categorias',
   });
   const [searchProducts, setSearchProducts] = useState(products);
-
-  function handleOpenSelectCategoryModal() {
-    setCagoryModalOpen(true);
-  }
-
-  function handleCloseSelectCategoryModal() {
-    setCagoryModalOpen(false);
-  }
 
   async function listProducts() {
     try {
@@ -64,6 +57,18 @@ export function Products() {
     } finally {
       setIsLoading(false);
     }
+  }
+
+  function handleOpenSelectCategoryModal() {
+    setCagoryModalOpen(true);
+  }
+
+  function handleCloseSelectCategoryModal() {
+    setCagoryModalOpen(false);
+  }
+
+  function handleChangeToProductDetail() {
+    navigate('Product');
   }
 
   useEffect(() => {
@@ -126,7 +131,7 @@ export function Products() {
             numColumns={2}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
-              <CardProducts data={item} onPress={() => {}} />
+              <CardProducts data={item} onPress={handleChangeToProductDetail} />
             )}
           />
         )
@@ -136,7 +141,7 @@ export function Products() {
           numColumns={2}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            <CardProducts data={item} onPress={() => {}} />
+            <CardProducts data={item} onPress={handleChangeToProductDetail} />
           )}
         />
       )}

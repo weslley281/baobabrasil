@@ -15,6 +15,7 @@ import {
   Slogan,
   Title,
   ContainerButton,
+  Footer,
 } from './styles';
 
 export function Dashboard() {
@@ -22,7 +23,11 @@ export function Dashboard() {
   const { navigate, goBack } = useNavigation<any>();
 
   function handleScreenRegister() {
-    navigate('Registro');
+    navigate('Register');
+  }
+
+  function handleScreenProducts() {
+    navigate('Products');
   }
 
   return (
@@ -56,6 +61,14 @@ export function Dashboard() {
           <CardPromotion data={item} onPress={() => {}} />
         )}
       />
+
+      <Footer>
+        <Button
+          title="Ver todos os Produtos"
+          onPress={handleScreenProducts}
+          light
+        />
+      </Footer>
     </Container>
   );
 }

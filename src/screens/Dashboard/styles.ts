@@ -9,6 +9,7 @@ import {
 export const Container = styled.View`
   flex: 1;
   background-color: ${({ theme }) => theme.colors.background};
+  align-items: center;
 `;
 
 export const Header = styled.View`
@@ -54,4 +55,8 @@ export const Slogan = styled.Text`
   color: ${({ theme }) => theme.colors.shape};
   font-size: ${RFValue(15)}px;
   text-align: center;
+`;
+
+export const Footer = styled.View`
+  width: 90%;
 `;

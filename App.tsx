@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import AppLoading from 'expo-app-loading';
 import { ThemeProvider } from 'styled-components';
 import { NavigationContainer } from '@react-navigation/native';
-import { AppRoutes } from './src/routes/app.routes';
+import { AppRoutes, RoutesOf } from './src/routes/app2.routes';
 import theme from './src/global/styles/theme';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import {
@@ -13,7 +13,7 @@ import {
 } from '@expo-google-fonts/poppins';
 import { AuthProvider } from './src/hooks/auth';
 import { Routes } from './src/routes';
-import { StackRoutes2 } from './src/routes/app.routes2';
+import { StackRoutes, StackRoutes2 } from './src/routes/stack.routes';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -30,7 +30,7 @@ export default function App() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <ThemeProvider theme={theme}>
         <NavigationContainer>
-          <AppRoutes />
+          <StackRoutes />
         </NavigationContainer>
       </ThemeProvider>
     </GestureHandlerRootView>
