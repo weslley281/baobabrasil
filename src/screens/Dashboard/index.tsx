@@ -39,13 +39,11 @@ export function Dashboard() {
 
         <ContainerTitle>
           <Title>Clube Baobá</Title>
-          <Slogan>
-            Um clube de ofertas, sorteios e saúde.{'\n'}Faça o seu Cadastro
-          </Slogan>
+          <Slogan>Um clube de ofertas, sorteios e saúde.</Slogan>
 
           <ContainerButton>
             <Button
-              title="Aqui"
+              title="Faça o seu Cadastro"
               color={theme.colors.shape}
               onPress={handleScreenRegister}
             />

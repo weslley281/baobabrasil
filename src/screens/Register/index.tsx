@@ -43,16 +43,45 @@ export function Register() {
   const [sucess, setSucess] = useState(false);
 
   async function handleRegister() {
+    const arrayOfName = name.split(' ');
+    const arrayOfDate = date.split('/');
+    const ano = new Date().getFullYear();
+    const anoInvalido = ano - 100;
+    const dataFormatada = `${arrayOfDate[2]}-${arrayOfDate[1]}-${arrayOfDate[0]}`;
+
+    if (arrayOfName.length <= 1) {
+      Alert.alert('Escreva seu nome completo');
+      return;
+    }
+
+    if (phone.length < 15) {
+      Alert.alert('Escreva um numero de telefone celular válido');
+      return;
+    }
+
+    if (Number(arrayOfDate[0]) > 31 || Number(arrayOfDate[0]) <= 0) {
+      Alert.alert('O dia inserido está incorreto');
+      return;
+    }
+
+    if (Number(arrayOfDate[1]) > 12 || Number(arrayOfDate[0]) <= 0) {
+      Alert.alert('O mês está incorreto');
+      return;
+    }
+
+    if (Number(arrayOfDate[2]) > ano || Number(arrayOfDate[2]) <= anoInvalido) {
+      Alert.alert('O ano inserido é inválido');
+      return;
+    }
+
     setSucess(true);
 
     try {
       const obj = {
         name: name,
         phone: phone,
-        date: date,
+        birthday: dataFormatada,
         email: email,
-        cpf: cpf,
-        password: password,
       };
 
       await api.post('clients/save_clients.php', obj);
@@ -80,12 +109,14 @@ export function Register() {
           <ContainerForm>
             <Form>
               <Input
+                autoComplete="name"
                 name="name"
-                placeholder="Nome"
+                placeholder="Nome Completo"
                 onChangeText={(text) => setName(text)}
               />
 
               <TextInputMasked
+                autoComplete="tel"
                 placeholder="Telefone"
                 type={'cel-phone'}
                 options={{
@@ -98,29 +129,22 @@ export function Register() {
               />
 
               <TextInputMasked
-                placeholder="CPF"
-                type={'cpf'}
-                value={cpf}
-                onChangeText={(text) => setCpf(text)}
-              />
-
-              <TextInputMasked
+                autoComplete="birthdate-full"
                 placeholder="Data de Aniversário"
                 type={'datetime'}
                 options={{
                   format: 'DD/MM/YYYY',
                 }}
                 value={date}
-                onChangeText={(text) => console.log(text)}
+                onChangeText={(text) => setDate(text)}
               />
 
               <Input
+                autoComplete="email"
                 name="email"
                 placeholder="Email"
                 onChangeText={(text) => setEmail(text)}
               />
-
-              <Input name="confirmPassword" placeholder="Repita a Senha" />
 
               <Button
                 title="Enviar"
