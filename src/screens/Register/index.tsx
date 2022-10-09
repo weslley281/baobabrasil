@@ -41,6 +41,7 @@ export function Register() {
   const [name, setName] = useState('');
   const theme = useTheme();
   const [sucess, setSucess] = useState(false);
+  const { navigate, goBack } = useNavigation<any>();
 
   async function handleRegister() {
     const arrayOfName = name.split(' ');
@@ -76,24 +77,23 @@ export function Register() {
 
     setSucess(true);
 
+    const obj = {
+      name: name,
+      phone: phone,
+      birthday: dataFormatada,
+      email: email,
+    };
+
     try {
-      const obj = {
-        name: name,
-        phone: phone,
-        birthday: dataFormatada,
-        email: email,
-      };
-
-      await api.post('clients/save_clients.php', obj);
-
+      await api.post('clients/insert_client.php', obj);
       setName('');
       setPhone('');
       setDate('');
       setEmail('');
-      setCpf('');
-      setPassword('');
     } catch (error) {
       Alert.alert('Ops', 'Alguma coisa deu errado, tente novamente.');
+      // console.log(obj);
+      console.log(error.response.data);
       setSucess(false);
     }
   }
@@ -112,6 +112,7 @@ export function Register() {
                 autoComplete="name"
                 name="name"
                 placeholder="Nome Completo"
+                value={name}
                 onChangeText={(text) => setName(text)}
               />
 
@@ -143,6 +144,7 @@ export function Register() {
                 autoComplete="email"
                 name="email"
                 placeholder="Email"
+                value={email}
                 onChangeText={(text) => setEmail(text)}
               />
 
@@ -154,6 +156,7 @@ export function Register() {
                   handleRegister().then(() => {
                     setTimeout(() => {
                       setSucess(false);
+                      // navigate('DashBoard');
                     }, 1500);
                   });
                 }}
