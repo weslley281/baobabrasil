@@ -32,14 +32,10 @@ interface FormData {
 }
 
 export function Register() {
-  const navigation: any = useNavigation();
   const [date, setDate] = useState('');
-  const [cpf, setCpf] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [name, setName] = useState('');
-  const theme = useTheme();
   const [sucess, setSucess] = useState(false);
   const { navigate, goBack } = useNavigation<any>();
 
@@ -72,6 +68,11 @@ export function Register() {
 
     if (Number(arrayOfDate[2]) > ano || Number(arrayOfDate[2]) <= anoInvalido) {
       Alert.alert('O ano inserido é inválido');
+      return;
+    }
+
+    if (email == '') {
+      Alert.alert('Escreva seu email');
       return;
     }
 
@@ -156,7 +157,8 @@ export function Register() {
                   handleRegister().then(() => {
                     setTimeout(() => {
                       setSucess(false);
-                      // navigate('DashBoard');
+                      navigate('DashBoard');
+                      Alert.alert('Salvo com sucesso');
                     }, 1500);
                   });
                 }}
