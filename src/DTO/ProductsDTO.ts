@@ -1,5 +1,5 @@
 export interface ProductsProps {
-  id: number;
+  id: string;
   name: string;
   descriptiom: string;
   price: number;

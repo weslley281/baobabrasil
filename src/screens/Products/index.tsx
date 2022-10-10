@@ -6,7 +6,6 @@ import {
   Input,
   LoadContainer,
   Ordination,
-  ProductsList,
   Title,
 } from './styles';
 import { ActivityIndicator, FlatList, Modal } from 'react-native';
@@ -19,15 +18,7 @@ import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { useTheme } from 'styled-components';
 import { Load } from '../../components/Load';
 import { useIsFocused } from '@react-navigation/native';
-
-interface ProductsProps {
-  id: number;
-  name: string;
-  descriptiom: string;
-  price: number;
-  category: number;
-  image: string;
-}
+import { ProductsProps } from '../../DTO/ProductsDTO';
 
 export function Products() {
   const theme = useTheme();
@@ -67,8 +58,8 @@ export function Products() {
     setCagoryModalOpen(false);
   }
 
-  function handleChangeToProductDetail() {
-    navigate('Product');
+  function handleChangeToProductDetail(product: ProductsProps) {
+    navigate('Product', { product });
   }
 
   useEffect(() => {
@@ -95,15 +86,15 @@ export function Products() {
 
   //busca por categoria
   useEffect(() => {
-    if (category.key === 'category') {
-      setProducts(products);
-    } else if (category.name === 'todos') {
-      listProducts();
-    } else {
-      setProducts(
-        products.filter((item) => item.category.toLowerCase() === category.key)
-      );
-    }
+    console.log('Todos produtos' + products);
+    const produtosFiltrados = products.filter(
+      (item) => item.category === category.key
+    );
+    console.log('Todos produtos Filtrados' + produtosFiltrados);
+
+    setSearchProducts(
+      products.filter((item) => item.category.toLowerCase() === category.key)
+    );
   }, [category]);
 
   return (
@@ -122,26 +113,42 @@ export function Products() {
           onChangeText={(text) => setSearchText(text)}
         />
       </Form>
-      {searchText === '' ? (
+      {searchText === '' && category.key === 'category' ? (
         isLoading ? (
           <Load />
         ) : (
-          <ProductsList
+          <FlatList
             data={products}
             numColumns={2}
-            keyExtractor={(item) => item.id}
+            keyExtractor={(item) => item.id.toString()}
+            contentContainerStyle={{
+              paddingLeft: 18,
+              alignItems: 'center',
+              justifyContent: 'center',
+              backgroundColor: 'red',
+            }}
             renderItem={({ item }) => (
-              <CardProducts data={item} onPress={handleChangeToProductDetail} />
+              <CardProducts
+                data={item}
+                onPress={() => handleChangeToProductDetail(item)}
+              />
             )}
           />
         )
       ) : (
-        <ProductsList
+        <FlatList
           data={searchProducts}
           numColumns={2}
-          keyExtractor={(item) => item.id}
+          contentContainerStyle={{
+            alignItems: 'center',
+            backgroundColor: 'blue',
+          }}
+          keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
-            <CardProducts data={item} onPress={handleChangeToProductDetail} />
+            <CardProducts
+              data={item}
+              onPress={() => handleChangeToProductDetail(item)}
+            />
           )}
         />
       )}

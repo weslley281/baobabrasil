@@ -1,6 +1,6 @@
 import { RFValue } from 'react-native-responsive-fontsize';
 import styled from 'styled-components/native';
-import { FlatList } from 'react-native';
+import { FlatList, FlatListProps } from 'react-native';
 import { ProductsProps } from '../../DTO/ProductsDTO';
 
 export const Header = styled.View`
@@ -55,10 +55,3 @@ export const LoadContainer = styled.View`
   justify-content: center;
   align-items: center;
 `;
-
-export const ProductsList = styled(
-  FlatList as new () => FlatList<ProductsProps>
-).attrs({
-  contentContainerStyle: { padding: 24 },
-  showsVerticalScrollIndicator: true,
-})``;

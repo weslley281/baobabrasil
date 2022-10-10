@@ -1,47 +1,57 @@
 export const categories = [
   {
     key: 'condimentos',
-    name: 'condimentos',
+    name: 'Condimentos',
     icon: 'aperture',
   },
   {
     key: 'doces',
-    name: 'doces',
+    name: 'Doces',
     icon: 'aperture',
   },
   {
     key: 'farinaceos',
-    name: 'farinaceos',
+    name: 'Farináceos',
     icon: 'aperture',
   },
   {
     key: 'chas',
-    name: 'chas',
+    name: 'Chás',
     icon: 'aperture',
   },
   {
     key: 'encapsulados',
-    name: 'encapsulados',
+    name: 'Encapsulados',
     icon: 'aperture',
   },
   {
     key: 'sementes',
-    name: 'sementes',
+    name: 'Sementes',
     icon: 'aperture',
   },
   {
     key: 'graos',
-    name: 'grãos',
+    name: 'Grãos',
     icon: 'aperture',
   },
   {
     key: 'suplementos',
-    name: 'suplementos',
+    name: 'Suplementos',
+    icon: 'aperture',
+  },
+  {
+    key: 'frutas secas',
+    name: 'Frutas secas',
+    icon: 'aperture',
+  },
+  {
+    key: 'petiscos',
+    name: 'Petiscos',
     icon: 'aperture',
   },
   {
     key: 'todos',
-    name: 'todos',
+    name: 'Todos',
     icon: 'aperture',
   },
 ];
