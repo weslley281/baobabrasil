@@ -17,7 +17,7 @@ export function StackRoutes() {
   const theme = useTheme();
   return (
     <Navigator
-      initialRouteName="DashBoard"
+      initialRouteName="Products"
       screenOptions={{ headerShown: false }}
     >
       <Screen name="Register" component={Register} />

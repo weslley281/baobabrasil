@@ -16,12 +16,14 @@
     "preview": {
       "extends": "production",
       "distribution": "internal",
+      "channel": "preview",
       "env": {
         "API_URL": "https://baobabrasil.com.br/apiBaoba"
       }
     },
     "production": {
       "node": "16.13.0",
+      "channel": "production",
       "env": {
         "API_URL": "https://baobabrasil.com.br/apiBaoba"
       }

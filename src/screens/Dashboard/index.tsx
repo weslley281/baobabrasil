@@ -27,6 +27,7 @@ export function Dashboard() {
   }
 
   function handleScreenProducts() {
+    console.log('voce clicou');
     navigate('Products');
   }
 
