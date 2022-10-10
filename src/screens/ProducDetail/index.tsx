@@ -23,6 +23,8 @@ interface Params {
 export function ProductDetail() {
   const { params } = useRoute();
   const { product } = params as Params;
+  const price = product.price.toString().replace('.', ',');
+
   return (
     <Container>
       <Header>
@@ -34,7 +36,7 @@ export function ProductDetail() {
 
       <Content>
         <ContainerPrice>
-          <Price>R$ {product.price}</Price>
+          <Price>R$ {price}</Price>
         </ContainerPrice>
 
         <Line />

@@ -15,6 +15,8 @@ interface Props extends RectButtonProps {
 }
 
 export function CardProducts({ data, ...rest }: Props) {
+  const price = data.price.toString().replace('.', ',');
+
   return (
     <Container {...rest}>
       <ContainerImageProduct>
@@ -23,7 +25,7 @@ export function CardProducts({ data, ...rest }: Props) {
 
       <ContainerProductDescription>
         <ProductName>{data.name}</ProductName>
-        <ProductPrice>R$ {data.price}</ProductPrice>
+        <ProductPrice>R$ {price}</ProductPrice>
       </ContainerProductDescription>
     </Container>
   );

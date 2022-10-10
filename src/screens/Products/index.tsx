@@ -30,7 +30,7 @@ export function Products() {
   const [cagoryModalOpen, setCagoryModalOpen] = useState(false);
   const { navigate, goBack } = useNavigation<any>();
   const [category, setCategory] = useState({
-    key: 'category',
+    key: 'todos',
     name: 'Categorias',
   });
   const [searchProducts, setSearchProducts] = useState(products);
@@ -86,12 +86,6 @@ export function Products() {
 
   //busca por categoria
   useEffect(() => {
-    console.log('Todos produtos' + products);
-    const produtosFiltrados = products.filter(
-      (item) => item.category === category.key
-    );
-    console.log('Todos produtos Filtrados' + produtosFiltrados);
-
     setSearchProducts(
       products.filter((item) => item.category.toLowerCase() === category.key)
     );
@@ -113,7 +107,7 @@ export function Products() {
           onChangeText={(text) => setSearchText(text)}
         />
       </Form>
-      {searchText === '' && category.key === 'category' ? (
+      {searchText === '' && category.key === 'todos' ? (
         isLoading ? (
           <Load />
         ) : (
@@ -125,7 +119,7 @@ export function Products() {
               paddingLeft: 18,
               alignItems: 'center',
               justifyContent: 'center',
-              backgroundColor: 'red',
+              // backgroundColor: 'red',
             }}
             renderItem={({ item }) => (
               <CardProducts
@@ -140,8 +134,9 @@ export function Products() {
           data={searchProducts}
           numColumns={2}
           contentContainerStyle={{
+            paddingLeft: 18,
             alignItems: 'center',
-            backgroundColor: 'blue',
+            // backgroundColor: 'blue',
           }}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (

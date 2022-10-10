@@ -3,7 +3,7 @@ import { RFValue, RFPercentage } from 'react-native-responsive-fontsize';
 import { RectButton } from 'react-native-gesture-handler';
 
 export const Container = styled(RectButton)`
-  width: 46%;
+  width: 170px;
   background-color: yellowgreen;
   margin-bottom: 10px;
   margin-right: 2%;
