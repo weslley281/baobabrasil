@@ -1,7 +1,7 @@
 import React from 'react';
 import { RectButtonProps } from 'react-native-gesture-handler';
 import { useTheme } from 'styled-components';
-import { Container, IconImage, Title } from './styles';
+import { Container, Title, IconImage } from './styles';
 
 interface Props extends RectButtonProps {
   title: string;
@@ -11,7 +11,14 @@ interface Props extends RectButtonProps {
   icon?: string;
 }
 
-export function Button({ title, color, light, icon, onPress, ...rest }: Props) {
+export function ButtonWhatsapp({
+  title,
+  color,
+  light,
+  icon,
+  onPress,
+  ...rest
+}: Props) {
   const theme = useTheme();
   return (
     <Container
@@ -19,7 +26,7 @@ export function Button({ title, color, light, icon, onPress, ...rest }: Props) {
       onPress={onPress}
       {...rest}
     >
-      {/* {icon !== '' ? <IconImage source={require(`../../assets/${icon}`)} />} */}
+      <IconImage source={require(`../../assets/whatsapp.svg`)} />
       <Title light={light}>{title}</Title>
     </Container>
   );

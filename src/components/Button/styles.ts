@@ -24,3 +24,5 @@ export const Title = styled.Text<ButtonTextProps>`
   color: ${({ theme, light }) =>
     light ? theme.colors.shape : theme.colors.text_dark};
 `;
+
+export const IconImage = styled.Image``;
