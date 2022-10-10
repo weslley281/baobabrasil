@@ -25,11 +25,13 @@ export const ImageProduct = styled.Image`
 export const ContainerProductDescription = styled.View`
   width: 100%;
   align-items: center;
+  padding: 0 8px;
 `;
 
 export const ProductName = styled.Text`
-  font-family: ${({ theme }) => theme.fonts.regular};
+  font-family: ${({ theme }) => theme.fonts.medium};
   font-size: ${RFValue(13)}px;
+  text-align: center;
 `;
 
 export const ProductPrice = styled.Text`

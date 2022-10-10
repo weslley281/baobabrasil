@@ -1,5 +1,5 @@
 import { RectButton } from 'react-native-gesture-handler';
-import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
+import { RFValue } from 'react-native-responsive-fontsize';
 import styled from 'styled-components/native';
 
 export const Container = styled(RectButton)`
@@ -22,13 +22,13 @@ export const TextView = styled.View`
 export const Title = styled.Text`
   font-family: ${({ theme }) => theme.fonts.bold};
   color: ${({ theme }) => theme.colors.text_dark};
-  font-size: ${RFValue(16)}px;
+  font-size: ${RFValue(18)}px;
 `;
 
 export const Slogan = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};
-  color: ${({ theme }) => theme.colors.text_dark};
-  font-size: ${RFValue(12)}px;
+  color: ${({ theme }) => theme.colors.shape};
+  font-size: ${RFValue(14)}px;
 `;
 export const ImagePromotion = styled.Image`
   height: ${RFValue(100)}px;
