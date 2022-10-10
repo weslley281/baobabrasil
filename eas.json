@@ -4,6 +4,7 @@
   },
   "build": {
     "development": {
+      "developmentClient": true,
       "distribution": "internal",
       "android": {
         "gradleCommand": ":app:assembleDebug"
@@ -13,9 +14,18 @@
       }
     },
     "preview": {
-      "distribution": "internal"
+      "extends": "production",
+      "distribution": "internal",
+      "env": {
+        "API_URL": "https://baobabrasil.com.br/apiBaoba"
+      }
     },
-    "production": {}
+    "production": {
+      "node": "16.13.0",
+      "env": {
+        "API_URL": "https://baobabrasil.com.br/apiBaoba"
+      }
+    }
   },
   "submit": {
     "production": {}
