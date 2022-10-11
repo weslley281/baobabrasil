@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import AppLoading from 'expo-app-loading';
 import { ThemeProvider } from 'styled-components';
 import { NavigationContainer } from '@react-navigation/native';
-import { RoutesOf } from './src/routes/app2.routes';
 import theme from './src/global/styles/theme';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import {

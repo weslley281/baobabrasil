@@ -10,6 +10,12 @@
       "eas": {
         "projectId": "01b7ee32-afd4-400f-b158-4a0353dc5b47"
       }
+    },
+    "runtimeVersion": "1.0.0",
+    "android": {},
+    "ios": {},
+    "updates": {
+      "url": "https://u.expo.dev/01b7ee32-afd4-400f-b158-4a0353dc5b47"
     }
   }
 }
